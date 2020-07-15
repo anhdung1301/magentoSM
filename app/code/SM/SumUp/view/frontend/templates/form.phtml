@@ -1,0 +1,33 @@
+<?php
+/**
+ * @var  \SM\SumUp\Block\Post $block
+ */?>
+<form action="<?= $block->getUrl('sumup/Index/save'); ?>" method="POST" enctype='multipart/form-data' >
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" name="name" />
+    </div>
+    <div class="form-group">
+        <label for="short_description">short_description</label>
+        <input type="text" class="form-control" id="short_description"  name="short_description"/>
+    </div>
+    <div class="form-group">
+        <label for="description">description</label>
+        <input type="text" class="form-control" id="description" name="description"/>
+    </div>
+    <div class="form-group">
+        <label for="content">content</label>
+        <textarea lass="form-control" id="content"  name="content" ></textarea>
+    </div>
+    <div class="form-group">
+        <label for="gellery">gellery</label>
+        <input type="text" class="form-control" id="gallery"  name="gallery"/>
+    </div>
+    <div class="form-group">
+        <label for="image">Example file input</label>
+        <input type="file" class="form-control-file" id="image" name="image">
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+    <a href="<?= $block->getUrl('sumup/index/index'); ?>">back</a>
+
+</form>

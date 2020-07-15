@@ -1,0 +1,34 @@
+<?php
+/**
+ * @var  \SM\SumUp\Block\Post $block
+ */?>
+<?php $tag = $block->getTagCollection();?>
+
+<?php foreach ($tag as $item){
+    echo $item['name'];
+} ?>
+<h1><a href="<?= $block->getUrl('sumup/index/form'); ?>">add</a></h1>
+<table>
+    <tr>
+        <th class="post-id">Id</th>
+        <th class="post-name">Name</th>
+        <th>short_description</th>
+        <th>description</th>
+        <th>content</th>
+        <th>image</th>
+        <th>gallery</th>
+
+    </tr>
+    <?php foreach ($block->getPostCollection() as $key=>$post){ ?>
+       <tr>
+                    <td> <?= $post->getPostId() ?></td>
+                    <td> <?= $post->getName()?></td>
+                    <td><?=$post->getshort_description()?></td>
+                    <td><?=$post->getdescription()?></td>
+                    <td><?=$post->getcontent()?></td>
+                    <td><img src="<?=$block->geturlBase().'images/'.$post->getimage(); ?> " width="100" height="100"></td>
+                    <td><?= $post->getgallery()?> </td>
+                  </tr>
+   <?php }
+    ?>
+</table>

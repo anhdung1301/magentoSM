@@ -1,0 +1,215 @@
+{
+    "ms_blog_post": {
+        "column": {
+            "post_id": true,
+            "name": true,
+            "short_description": true,
+            "description": true,
+            "content": true,
+            "enabled": true,
+            "image": true,
+            "gallery": true,
+            "category_ids": true,
+            "tag_ids": true,
+            "url_key": true,
+            "product_ids": true,
+            "author_id": true,
+            "publish_date_from": true,
+            "publish_date_to": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "MS_BLOG_POST_AUTHOR_ID_MS_BLOG_AUTHOR_USER_ID": true
+        }
+    },
+    "ms_blog_tag": {
+        "column": {
+            "tag_id": true,
+            "name": true,
+            "url_key": true,
+            "description": true,
+            "store_ids": true,
+            "enabled": true,
+            "created_at": true,
+            "updated_at": true,
+            "meta_title": true,
+            "meta_keywords": true,
+            "meta_description": true,
+            "meta_robots": true,
+            "import_source": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "ms_blog_category": {
+        "column": {
+            "category_id": true,
+            "name": true,
+            "url_key": true,
+            "description": true,
+            "store_ids": true,
+            "enabled": true,
+            "meta_title": true,
+            "meta_keywords": true,
+            "meta_description": true,
+            "meta_robots": true,
+            "parent_id": true,
+            "path": true,
+            "position": true,
+            "level": true,
+            "children_count": true,
+            "created_at": true,
+            "updated_at": true,
+            "import_source": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "ms_blog_author": {
+        "column": {
+            "user_id": true,
+            "name": true,
+            "url_key": true,
+            "customer_id": true,
+            "type": true,
+            "status": true,
+            "created_at": true,
+            "updated_at": true,
+            "image": true,
+            "short_description": true,
+            "facebook_link": true,
+            "twitter_link": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "sm_blog_post": {
+        "column": {
+            "post_id": true,
+            "name": true,
+            "short_description": true,
+            "description": true,
+            "content": true,
+            "enabled": true,
+            "image": true,
+            "gallery": true,
+            "category_ids": true,
+            "tag_ids": true,
+            "url_key": true,
+            "product_ids": true,
+            "author_id": true,
+            "publish_date_from": true,
+            "publish_date_to": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "sm_blog_tag": {
+        "column": {
+            "tag_id": true,
+            "name": true,
+            "url_key": true,
+            "description": true,
+            "store_ids": true,
+            "enabled": true,
+            "created_at": true,
+            "updated_at": true,
+            "meta_title": true,
+            "meta_keywords": true,
+            "meta_description": true,
+            "meta_robots": true,
+            "import_source": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "sm_blog_category": {
+        "column": {
+            "category_id": true,
+            "name": true,
+            "url_key": true,
+            "description": true,
+            "store_ids": true,
+            "enabled": true,
+            "meta_title": true,
+            "meta_keywords": true,
+            "meta_description": true,
+            "meta_robots": true,
+            "parent_id": true,
+            "path": true,
+            "position": true,
+            "level": true,
+            "children_count": true,
+            "created_at": true,
+            "updated_at": true,
+            "import_source": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "sm_blog_author": {
+        "column": {
+            "user_id": true,
+            "name": true,
+            "url_key": true,
+            "customer_id": true,
+            "type": true,
+            "status": true,
+            "created_at": true,
+            "updated_at": true,
+            "image": true,
+            "short_description": true,
+            "facebook_link": true,
+            "twitter_link": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "sm_blog_post_category": {
+        "column": {
+            "category_id": true,
+            "post_id": true,
+            "position": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "SM_BLOG_POST_CATEGORY_CATEGORY_ID_SM_BLOG_CATEGORY_CATEGORY_ID": true,
+            "SM_BLOG_POST_CATEGORY_POST_ID_SM_BLOG_POST_POST_ID": true
+        }
+    },
+    "sm_blog_post_tag": {
+        "column": {
+            "tag_id": true,
+            "post_id": true,
+            "position": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "SM_BLOG_POST_TAG_TAG_ID_SM_BLOG_TAG_TAG_ID": true,
+            "SM_BLOG_POST_TAG_POST_ID_SM_BLOG_POST_POST_ID": true
+        }
+    },
+    "sm_blog_post_product": {
+        "column": {
+            "post_id": true,
+            "entity_id": true,
+            "position": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "SM_BLOG_POST_PRODUCT_ENTITY_ID_CATALOG_PRODUCT_ENTITY_ENTITY_ID": true,
+            "SM_BLOG_POST_PRODUCT_POST_ID_SM_BLOG_POST_POST_ID": true
+        }
+    }
+}
