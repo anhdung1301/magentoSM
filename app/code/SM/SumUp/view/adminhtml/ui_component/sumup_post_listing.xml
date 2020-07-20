@@ -12,7 +12,7 @@
                 <item name="name" xsi:type="string">add</item>
                 <item name="label" xsi:type="string" translate="true">Add New Post</item>
                 <item name="class" xsi:type="string">primary</item>
-                <item name="url" xsi:type="string">*/*/new</item>
+                <item name="url" xsi:type="string">*/*/edit</item>
             </item>
         </item>
     </argument>
@@ -48,57 +48,57 @@
         <columnsControls name="columns_controls"/>
         <exportButton name="export_button"/>
         <filters name="listing_filters"/>
-<!--        <massaction name="listing_massaction">-->
-<!--            <argument name="data" xsi:type="array">-->
-<!--                <item name="config" xsi:type="array">-->
-<!--                    <item name="component" xsi:type="string">Magento_Ui/js/grid/tree-massactions</item>-->
-<!--                </item>-->
-<!--            </argument>-->
-<!--            <action name="delete">-->
-<!--                <argument name="data" xsi:type="array">-->
-<!--                    <item name="config" xsi:type="array">-->
-<!--                        <item name="type" xsi:type="string">delete</item>-->
-<!--                        <item name="label" xsi:type="string" translate="true">Delete</item>-->
-<!--                        <item name="url" xsi:type="url" path="mageplaza_blog/post/massDelete"/>-->
-<!--                        <item name="confirm" xsi:type="array">-->
-<!--                            <item name="title" xsi:type="string" translate="true">Delete Posts</item>-->
-<!--                            <item name="message" xsi:type="string" translate="true">Are you sure you wan't to delete selected Posts?</item>-->
-<!--                        </item>-->
-<!--                    </item>-->
-<!--                </argument>-->
-<!--            </action>-->
-<!--            <action name="status">-->
-<!--                <argument name="data" xsi:type="array">-->
-<!--                    <item name="config" xsi:type="array">-->
-<!--                        <item name="type" xsi:type="string">status</item>-->
-<!--                        <item name="label" xsi:type="string" translate="true">Change status</item>-->
-<!--                    </item>-->
-<!--                </argument>-->
-<!--                <argument name="actions" xsi:type="array">-->
-<!--                    <item name="0" xsi:type="array">-->
-<!--                        <item name="type" xsi:type="string">pending</item>-->
-<!--                        <item name="label" xsi:type="string" translate="true">Pending</item>-->
-<!--                        <item name="url" xsi:type="url" path="mageplaza_blog/post/massStatus">-->
-<!--                            <param name="status">0</param>-->
-<!--                        </item>-->
-<!--                    </item>-->
-<!--                    <item name="1" xsi:type="array">-->
-<!--                        <item name="type" xsi:type="string">approved</item>-->
-<!--                        <item name="label" xsi:type="string" translate="true">Approved</item>-->
-<!--                        <item name="url" xsi:type="url" path="mageplaza_blog/post/massStatus">-->
-<!--                            <param name="status">1</param>-->
-<!--                        </item>-->
-<!--                    </item>-->
-<!--                    <item name="2" xsi:type="array">-->
-<!--                        <item name="type" xsi:type="string">disapproved</item>-->
-<!--                        <item name="label" xsi:type="string" translate="true">Disapproved</item>-->
-<!--                        <item name="url" xsi:type="url" path="mageplaza_blog/post/massStatus">-->
-<!--                            <param name="status">2</param>-->
-<!--                        </item>-->
-<!--                    </item>-->
-<!--                </argument>-->
-<!--            </action>-->
-<!--        </massaction>-->
+        <massaction name="listing_massaction">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/tree-massactions</item>
+                </item>
+            </argument>
+            <action name="delete">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">delete</item>
+                        <item name="label" xsi:type="string" translate="true">Delete</item>
+                        <item name="url" xsi:type="url" path="sumup/post/massDelete"/>
+                        <item name="confirm" xsi:type="array">
+                            <item name="title" xsi:type="string" translate="true">Delete Posts</item>
+                            <item name="message" xsi:type="string" translate="true">Are you sure you wan't to delete selected Posts?</item>
+                        </item>
+                    </item>
+                </argument>
+            </action>
+            <action name="status">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">status</item>
+                        <item name="label" xsi:type="string" translate="true">Change status</item>
+                    </item>
+                </argument>
+                <argument name="actions" xsi:type="array">
+                    <item name="0" xsi:type="array">
+                        <item name="type" xsi:type="string">pending</item>
+                        <item name="label" xsi:type="string" translate="true">Pending</item>
+                        <item name="url" xsi:type="url" path="sumup/post/massStatus">
+                            <param name="status">0</param>
+                        </item>
+                    </item>
+                    <item name="1" xsi:type="array">
+                        <item name="type" xsi:type="string">approved</item>
+                        <item name="label" xsi:type="string" translate="true">Approved</item>
+                        <item name="url" xsi:type="url" path="sumup/post/massStatus">
+                            <param name="status">1</param>
+                        </item>
+                    </item>
+                    <item name="2" xsi:type="array">
+                        <item name="type" xsi:type="string">disapproved</item>
+                        <item name="label" xsi:type="string" translate="true">Disapproved</item>
+                        <item name="url" xsi:type="url" path="sumup/post/massStatus">
+                            <param name="status">2</param>
+                        </item>
+                    </item>
+                </argument>
+            </action>
+        </massaction>
         <paging name="listing_paging"/>
     </listingToolbar>
     <columns name="sumup_blog_post_columns">
@@ -109,7 +109,7 @@
                     <item name="enabled" xsi:type="boolean">true</item>
                     <item name="indexField" xsi:type="string">post_id</item>
                     <item name="clientConfig" xsi:type="array">
-                        <item name="saveUrl" xsi:type="url" path="mageplaza_blog/post/inlineEdit"/>
+                        <item name="saveUrl" xsi:type="url" path="sumup/post/inlineEdit"/>
                         <item name="validateBeforeSave" xsi:type="boolean">false</item>
                     </item>
                 </item>
@@ -212,18 +212,18 @@
                 </item>
             </argument>
         </column>
-<!--        <actionsColumn name="actions" class="Mageplaza\Blog\Ui\Component\Listing\Column\Actions">-->
-<!--            <argument name="data" xsi:type="array">-->
-<!--                <item name="action_list" xsi:type="array">-->
-<!--                    <item name="edit" xsi:type="array">-->
-<!--                        <item name="label" xsi:type="string" translate="true">Edit</item>-->
-<!--                        <item name="path" xsi:type="string">mageplaza_blog/post/edit</item>-->
-<!--                        <item name="params" xsi:type="array">-->
-<!--                            <item name="id" xsi:type="string">post_id</item>-->
-<!--                        </item>-->
-<!--                    </item>-->
-<!--                </item>-->
-<!--            </argument>-->
-<!--        </actionsColumn>-->
+        <actionsColumn name="actions" class="SM\SumUp\Ui\Component\Listing\Column\Actions">
+            <argument name="data" xsi:type="array">
+                <item name="action_list" xsi:type="array">
+                    <item name="edit" xsi:type="array">
+                        <item name="label" xsi:type="string" translate="true">Edit</item>
+                        <item name="path" xsi:type="string">sumup/post/edit</item>
+                        <item name="params" xsi:type="array">
+                            <item name="id" xsi:type="string">post_id</item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+        </actionsColumn>
     </columns>
 </listing>
