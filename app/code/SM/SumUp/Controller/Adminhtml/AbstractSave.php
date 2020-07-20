@@ -51,10 +51,12 @@ abstract class AbstractSave extends Action
    if(isset($data['url_key']) && $data['url_key'] ==''){
        $data['url_key'] = $data['name'];
    }
+
         /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
         $resultRedirect = $this->resultRedirectFactory->create();
         try {
             $model = $this->getModel();
+
             if ($id) {
                 $model->load($id);
             } elseif (!$id) {
@@ -62,6 +64,7 @@ abstract class AbstractSave extends Action
             }
 
             $model->setData($data)->save();
+
             $this->messageManager->addSuccessMessage($this->getMessageSuccess());
             if ($this->getRequest()->getParam('back')) {
                 return $resultRedirect->setPath('*/*/edit', [$idFieldName => $model->getId(), 'duplicate' => '0']);

@@ -19,7 +19,7 @@
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
-namespace Mageplaza\Blog\Helper;
+namespace SM\SumUP\Helper;
 
 use DateTimeZone;
 use Exception;
@@ -38,8 +38,8 @@ use Magento\Framework\Stdlib\DateTime\DateTime;
 use Magento\Framework\View\DesignInterface;
 use Magento\Store\Model\Store;
 use Magento\Store\Model\StoreManagerInterface;
-//use SM\SumUp\Model\Author;
-//use SM\SumUp\Model\AuthorFactory;
+use SM\SumUp\Model\Author;
+use SM\SumUp\Model\AuthorFactory;
 use SM\SumUp\Model\Category;
 use SM\SumUp\Model\CategoryFactory;
 use SM\SumUp\Model\Config\Source\SideBarLR;
@@ -51,7 +51,7 @@ use SM\SumUp\Model\ResourceModel\Post\Collection as PostCollection;
 use SM\SumUp\Model\ResourceModel\Tag\Collection as TagCollection;
 use SM\SumUp\Model\Tag;
 use SM\SumUp\Model\TagFactory;
-use Mageplaza\Core\Helper\AbstractData as CoreHelper;
+use SM\SumUp\Helper\AbstractData as CoreHelper;
 
 /**
  * Class Data

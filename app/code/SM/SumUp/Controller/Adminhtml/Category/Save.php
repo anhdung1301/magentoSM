@@ -47,6 +47,6 @@ class Save extends \SM\SumUp\Controller\Adminhtml\AbstractSave
      */
     public function getMessageSuccess()
     {
-        return __('save condition success');
+        return __('save category success');
     }
 }

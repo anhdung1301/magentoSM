@@ -62,7 +62,7 @@ class Edit extends Container
             [
                 'label'   => __('Delete'),
                 'class'   => 'delete',
-                'onclick' => "setLocation('{$this->getUrl('mageplaza_blog/author/delete', [
+                'onclick' => "setLocation('{$this->getUrl('sumup/author/delete', [
                     'id' => $this->getCurrentAuthor()->getId(),
                     '_current' => true,
                     'back' => 'edit'
@@ -93,6 +93,6 @@ class Edit extends Container
      */
     public function getCurrentAuthor()
     {
-        return $this->coreRegistry->registry('mageplaza_blog_author');
+        return $this->coreRegistry->registry('sumup_blog_author');
     }
 }
