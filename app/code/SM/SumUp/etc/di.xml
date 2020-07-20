@@ -8,9 +8,17 @@
                 <item name="sm_blog_tag_listing_data_source" xsi:type="string">SM\SumUp\Model\ResourceModel\Tag\Grid\Collection</item>
                 <item name="sm_blog_category_listing_data_source" xsi:type="string">SM\SumUp\Model\ResourceModel\Category\Grid\Collection</item>
                 <item name="sm_blog_author_listing_data_source" xsi:type="string">SM\SumUp\Model\ResourceModel\Author\Grid\Collection</item>
+                <item name="sm_blog_author_post_data_source" xsi:type="string">SM\SumUp\Model\ResourceModel\Post\Grid\Collection</item>
             </argument>
         </arguments>
     </type>
+    <virtualType name="SM\SumUp\Model\ResourceModel\Post\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">sm_blog_post</argument>
+            <argument name="resourceModel" xsi:type="string">Mageplaza\Blog\Model\ResourceModel\Post</argument>
+        </arguments>
+    </virtualType>
+
     <virtualType name="SM\SumUp\Model\ResourceModel\Category\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
         <arguments>
             <argument name="mainTable" xsi:type="string">sm_blog_category</argument>
@@ -27,6 +35,12 @@
         <arguments>
             <argument name="mainTable" xsi:type="string">sm_blog_tag</argument>
             <argument name="resourceModel" xsi:type="string">SM\SumUp\Model\ResourceModel\Author</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="SM\SumUp\Model\ResourceModel\Post\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">sm_blog_post</argument>
+            <argument name="resourceModel" xsi:type="string">SM\SumUp\Model\ResourceModel\Post</argument>
         </arguments>
     </virtualType>
 </config>
