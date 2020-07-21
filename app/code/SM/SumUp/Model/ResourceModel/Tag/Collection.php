@@ -16,5 +16,29 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
     {
         $this->_init('SM\SumUp\Model\Tag', 'SM\SumUp\Model\ResourceModel\Tag');
     }
+    public function addIdFilter($tagIds)
+    {
+        $condition = '';
 
+        if (is_array($tagIds)) {
+            if (!empty($tagIds)) {
+                $condition = ['in' => $tagIds];
+            }
+        } elseif (is_numeric($tagIds)) {
+            $condition = $tagIds;
+        } elseif (is_string($tagIds)) {
+            $ids = explode(',', $tagIds);
+            if (empty($ids)) {
+                $condition = $tagIds;
+            } else {
+                $condition = ['in' => $ids];
+            }
+        }
+
+        if ($condition) {
+            $this->addFieldToFilter('tag_id', $condition);
+        }
+
+        return $this;
+    }
 }

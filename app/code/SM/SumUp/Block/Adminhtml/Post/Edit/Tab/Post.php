@@ -235,11 +235,12 @@ class Post extends Generic implements TabInterface
 //        }
 //
 //
-//        $fieldset->addField('tags_ids', Tag::class, [
-//            'name'  => 'tags_ids',
-//            'label' => __('Tags'),
-//            'title' => __('Tags'),
-//        ]);
+        $fieldset->addField('tags_ids', Tag::class, [
+            'name'  => 'tags_ids',
+            'label' => __('Tags'),
+            'title' => __('Tags'),
+        ]);
+
         if (!$post->getTagsIds()) {
             $post->setTagsIds($post->getTagIds());
         }

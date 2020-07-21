@@ -73,13 +73,8 @@ class Tag extends Multiselect
         $html .= '<input name="post[tags_ids]" data-bind="value: value" style="display: none"/>';
         $html .= '<!-- ko template: elementTmpl --><!-- /ko -->';
         $html .= '<!-- /ko -->';
-        $html .= '</div>';
 
-        $html .= '<div class="admin__field admin__field-group-additional admin__field-small"'
-            . 'data-bind="scope:\'create_tag_button\'">';
-        $html .= '<div class="admin__field-control">';
-        $html .= '<!-- ko template: elementTmpl --><!-- /ko -->';
-        $html .= '</div></div></div>';
+        $html .= '</div></div>';
 
         $html .= '<!-- ko scope: \'create_tag_modal\' --><!-- ko template: getTemplate() --><!-- /ko --><!-- /ko -->';
 
@@ -233,7 +228,7 @@ class Tag extends Multiselect
             $this->_urlBuilder->getUrl(
                 'mui/index/render_handle',
                 [
-                    'handle'  => 'sumup_blog_tag_create',
+                    'handle'  => 'sumup_tag_create',
                     'buttons' => 1
                 ]
             ) . '",
@@ -252,5 +247,6 @@ class Tag extends Multiselect
         </script>';
 
         return $html;
+
     }
 }
