@@ -177,69 +177,8 @@ class Tag extends Multiselect
                                         }
                                     }
                                 }
-                            },
-                            "create_tag_button": {
-                                "title": "' . __('New Tag') . '",
-                                "formElement": "container",
-                                "additionalClasses": "admin__field-small",
-                                "componentType": "container",
-                                "component": "Magento_Ui/js/form/components/button",
-                                "template": "ui/form/components/button/container",
-                                "actions": [
-                                    {
-                                        "targetName": "create_tag_modal",
-                                        "actionName": "toggleModal"
-                                    },
-                                    {
-                                        "targetName": "create_tag_modal.create_tag",
-                                        "actionName": "render"
-                                    },
-                                    {
-                                        "targetName": "create_tag_modal.create_tag",
-                                        "actionName": "resetForm"
-                                    }
-                                ],
-                                "additionalForGroup": true,
-                                "provider": false,
-                                "source": "product_details",
-                                "displayArea": "insideGroup"
-                            },
-                            "create_tag_modal": {
-                                "config": {
-                                    "isTemplate": false,
-                                    "componentType": "container",
-                                    "component": "Magento_Ui/js/modal/modal-component",
-                                    "options": {
-                                        "title": "' . __('New Tag') . '",
-                                        "type": "slide"
-                                    },
-                                    "imports": {
-                                        "state": "!index=create_tag:responseStatus"
-                                    }
-                                },
-                                "children": {
-                                    "create_tag": {
-                                        "label": "",
-                                        "componentType": "container",
-                                        "component": "Magento_Ui/js/form/components/insert-form",
-                                        "dataScope": "",
-                                        "update_url": "' . $this->_urlBuilder->getUrl('mui/index/render') . '",
-                                        "render_url": "' .
-            $this->_urlBuilder->getUrl(
-                'mui/index/render_handle',
-                [
-                    'handle'  => 'sumup_tag_create',
-                    'buttons' => 1
-                ]
-            ) . '",
-                                        "autoRender": false,
-                                        "ns": "blog_new_tag_form",
-                                        "externalProvider": "blog_new_tag_form.new_tag_form_data_source",
-                                        "toolbarContainer": "${ $.parentName }",
-                                        "formSubmitType": "ajax"
-                                    }
-                                }
                             }
+
                         }
                     }
                 }

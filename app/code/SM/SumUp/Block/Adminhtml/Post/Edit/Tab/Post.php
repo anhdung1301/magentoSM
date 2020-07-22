@@ -146,7 +146,6 @@ class Post extends Generic implements TabInterface
 
         $form->setHtmlIdPrefix('post_');
         $form->setFieldNameSuffix('post');
-
         $fieldset = $form->addFieldset('base_fieldset', [
             'legend' => __('Post Information'),
             'class'  => 'fieldset-wide'
@@ -187,37 +186,17 @@ class Post extends Generic implements TabInterface
             'label' => __('Short Description'),
             'title' => __('Short Description')
         ]);
-        $fieldset->addField('post_content', 'editor', [
-            'name'   => 'post_content',
-            'label'  => __('Content'),
-            'title'  => __('Content'),
+        $fieldset->addField('description', 'editor', [
+            'name'   => 'description',
+            'label'  => __('Description'),
+            'title'  => __('Description'),
             'config' => $this->wysiwygConfig->getConfig([
                 'add_variables'  => false,
                 'add_widgets'    => true,
                 'add_directives' => true
             ])
         ]);
-//
-//        if ($this->_storeManager->isSingleStoreMode()) {
-//            $fieldset->addField('store_ids', 'hidden', [
-//                'name'  => 'store_ids',
-//                'value' => $this->_storeManager->getStore()->getId()
-//            ]);
-//        } else {
-//            /** @var RendererInterface $rendererBlock */
-//            $rendererBlock = $this->getLayout()->createBlock(Element::class);
-//            $fieldset->addField('store_ids', 'multiselect', [
-//                'name'   => 'store_ids',
-//                'label'  => __('Store Views'),
-//                'title'  => __('Store Views'),
-//                'values' => $this->systemStore->getStoreValuesForForm(false, true)
-//            ])->setRenderer($rendererBlock);
-//
-//            if (!$post->hasData('store_ids')) {
-//                $post->setStoreIds(0);
-//            }
-//        }
-//
+
         $fieldset->addField('image', \SM\SumUp\Block\Adminhtml\Renderer\Image::class, [
             'name'  => 'image',
             'label' => __('Image'),
@@ -225,16 +204,16 @@ class Post extends Generic implements TabInterface
             'path'  => $this->imageHelper->getBaseMediaPath(Image::TEMPLATE_MEDIA_TYPE_POST),
             'note'  => __('The appropriate size is 265px * 250px.')
         ]);
-//        $fieldset->addField('categories_ids', Category::class, [
-//            'name'  => 'categories_ids',
-//            'label' => __('Categories'),
-//            'title' => __('Categories'),
-//        ]);
-//        if (!$post->getCategoriesIds()) {
-//            $post->setCategoriesIds($post->getCategoryIds());
-//        }
-//
-//
+        $fieldset->addField('categories_ids', Category::class, [
+            'name'  => 'categories_ids',
+            'label' => __('Categories'),
+            'title' => __('Categories'),
+        ]);
+        if (!$post->getCategoriesIds()) {
+            $post->setCategoriesIds($post->getCategoryIds());
+        }
+
+
         $fieldset->addField('tags_ids', Tag::class, [
             'name'  => 'tags_ids',
             'label' => __('Tags'),
@@ -244,84 +223,45 @@ class Post extends Generic implements TabInterface
         if (!$post->getTagsIds()) {
             $post->setTagsIds($post->getTagIds());
         }
-//
-//
-//
-//        $fieldset->addField(
-//            'publish_date',
-//            'date',
-//            [
-//                'name'        => 'publish_date',
-//                'label'       => __('Publish Date'),
-//                'title'       => __('Publish Date'),
-//                'date_format' => 'yyyy-MM-dd',
-//                'timezone'    => false,
-//                'time_format' => 'hh:mm:ss'
-//            ]
-//        );
-//
-//        $seoFieldset = $form->addFieldset('seo_fieldset', [
-//            'legend' => __('Search Engine Optimization'),
-//            'class'  => 'fieldset-wide'
-//        ]);
-//        $seoFieldset->addField('url_key', 'text', [
-//            'name'  => 'url_key',
-//            'label' => __('URL Key'),
-//            'title' => __('URL Key')
-//        ]);
-//        $seoFieldset->addField('meta_title', 'text', [
-//            'name'  => 'meta_title',
-//            'label' => __('Meta Title'),
-//            'title' => __('Meta Title')
-//        ]);
-//        $seoFieldset->addField('meta_description', 'textarea', [
-//            'name'  => 'meta_description',
-//            'label' => __('Meta Description'),
-//            'title' => __('Meta Description')
-//        ]);
-//        $seoFieldset->addField('meta_keywords', 'textarea', [
-//            'name'  => 'meta_keywords',
-//            'label' => __('Meta Keywords'),
-//            'title' => __('Meta Keywords')
-//        ]);
-//        $seoFieldset->addField('meta_robots', 'select', [
-//            'name'   => 'meta_robots',
-//            'label'  => __('Meta Robots'),
-//            'title'  => __('Meta Robots'),
-//            'values' => $this->metaRobotsOptions->toOptionArray()
-//        ]);
-//
-//        $designFieldset = $form->addFieldset('design_fieldset', [
-//            'legend' => __('Design'),
-//            'class'  => 'fieldset-wide'
-//        ]);
-//
-//        $designFieldset->addField('layout', 'select', [
-//            'name'   => 'layout',
-//            'label'  => __('Layout'),
-//            'title'  => __('Layout'),
-//            'values' => $this->_layoutOptions->toOptionArray()
-//        ]);
-//
-//        if (!$post->getId()) {
-//            $post->addData([
-//                'allow_comment'    => 1,
-//                'meta_title'       => $this->_scopeConfig->getValue('blog/seo/meta_title'),
-//                'meta_description' => $this->_scopeConfig->getValue('blog/seo/meta_description'),
-//                'meta_keywords'    => $this->_scopeConfig->getValue('blog/seo/meta_keywords'),
-//                'meta_robots'      => $this->_scopeConfig->getValue('blog/seo/meta_robots'),
-//            ]);
-//        }
-//
-//        /** Get the public_date from database */
-//        if ($post->getData('publish_date')) {
-//            $publicDateTime = new \DateTime($post->getData('publish_date'), new DateTimeZone('UTC'));
-//            $publicDateTime->setTimezone(new DateTimeZone($this->_localeDate->getConfigTimezone()));
-//            $publicDateTime = $publicDateTime->format('m/d/Y H:i:s');
-//            $post->setData('publish_date', $publicDateTime);
-//        }
-//
-//        $form->addValues($post->getData());
+        $fieldset->addField(
+            'publish_date_from',
+            'date',
+            [
+                'name'        => 'publish_date_from',
+                'label'       => __('Publish Date'),
+                'title'       => __('Publish Date'),
+                'date_format' => 'yyyy-MM-dd',
+                'timezone'    => false,
+                'time_format' => 'hh:mm:ss'
+            ]
+        );
+        $fieldset->addField(
+            'publish_date_to',
+            'date',
+            [
+                'name'        => 'publish_date_to',
+                'label'       => __('Close Date'),
+                'title'       => __('Close Date'),
+                'date_format' => 'yyyy-MM-dd',
+                'timezone'    => false,
+                'time_format' => 'hh:mm:ss'
+            ]
+        );
+        $fieldset->addField('url_key', 'text', [
+            'name'  => 'url_key',
+            'label' => __('URL Key'),
+            'title' => __('URL Key')
+        ]);
+
+        /** Get the public_date from database */
+        if ($post->getData('publish_date_from')) {
+            $publicDateTime = new \DateTime($post->getData('publish_date'), new DateTimeZone('UTC'));
+            $publicDateTime->setTimezone(new DateTimeZone($this->_localeDate->getConfigTimezone()));
+            $publicDateTime = $publicDateTime->format('m/d/Y H:i:s');
+            $post->setData('publish_date_from', $publicDateTime);
+        }
+
+        $form->addValues($post->getData());
         $this->setForm($form);
 
         return parent::_prepareForm();

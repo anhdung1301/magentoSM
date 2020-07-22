@@ -73,13 +73,7 @@ class Category extends Multiselect
         $html .= '<input name="post[categories_ids]" data-bind="value: value" style="display: none"/>';
         $html .= '<!-- ko template: elementTmpl --><!-- /ko -->';
         $html .= '<!-- /ko -->';
-        $html .= '</div>';
-
-        $html .= '<div class="admin__field admin__field-group-additional admin__field-small"
-                  data-bind="scope:\'create_category_button\'">';
-        $html .= '<div class="admin__field-control">';
-        $html .= '<!-- ko template: elementTmpl --><!-- /ko -->';
-        $html .= '</div></div></div>';
+        $html .= '</div></div>';
 
         $html .= '<!-- ko scope: \'create_category_modal\' -->
         <!-- ko template: getTemplate() --><!-- /ko --><!-- /ko -->';
@@ -96,7 +90,7 @@ class Category extends Multiselect
      */
     public function getNoDisplay()
     {
-        $isNotAllowed = !$this->authorization->isAllowed('Mageplaza_Blog::category');
+        $isNotAllowed = !$this->authorization->isAllowed('SM_SumUp::category');
 
         return $this->getData('no_display') || $isNotAllowed;
     }
@@ -175,7 +169,7 @@ class Category extends Multiselect
                                 "component": "uiComponent",
                                 "children": {
                                     "blog_select_category": {
-                                        "component": "Mageplaza_Blog/js/components/new-category",
+                                        "component": "SM_SumUp/js/components/new-category",
                                         "config": {
                                             "filterOptions": true,
                                             "disableLabel": true,
@@ -191,70 +185,12 @@ class Category extends Multiselect
                                             "config": {
                                                 "dataScope": "blog_select_category",
                                                 "sortOrder": 10
-                                            }
+                                          }
                                         }
                                     }
                                 }
-                            },
-                            "create_category_button": {
-                                "title": "' . __('New Category') . '",
-                                "formElement": "container",
-                                "additionalClasses": "admin__field-small",
-                                "componentType": "container",
-                                "component": "Magento_Ui/js/form/components/button",
-                                "template": "ui/form/components/button/container",
-                                "actions": [
-                                    {
-                                        "targetName": "create_category_modal",
-                                        "actionName": "toggleModal"
-                                    },
-                                    {
-                                        "targetName": "create_category_modal.create_category",
-                                        "actionName": "render"
-                                    },
-                                    {
-                                        "targetName": "create_category_modal.create_category",
-                                        "actionName": "resetForm"
-                                    }
-                                ],
-                                "additionalForGroup": true,
-                                "provider": false,
-                                "source": "product_details",
-                                "displayArea": "insideGroup"
-                            },
-                            "create_category_modal": {
-                                "config": {
-                                    "isTemplate": false,
-                                    "componentType": "container",
-                                    "component": "Magento_Ui/js/modal/modal-component",
-                                    "options": {
-                                        "title": "' . __('New Category') . '",
-                                        "type": "slide"
-                                    },
-                                    "imports": {
-                                        "state": "!index=create_category:responseStatus"
-                                    }
-                                },
-                                "children": {
-                                    "create_category": {
-                                        "label": "",
-                                        "componentType": "container",
-                                        "component": "Magento_Ui/js/form/components/insert-form",
-                                        "dataScope": "",
-                                        "update_url": "' . $this->_urlBuilder->getUrl('mui/index/render') . '",
-                                        "render_url": "' .
-            $this->_urlBuilder->getUrl(
-                'mui/index/render_handle',
-                ['handle' => 'mageplaza_blog_category_create', 'buttons' => 1]
-            ) . '",
-                                        "autoRender": false,
-                                        "ns": "blog_new_category_form",
-                                        "externalProvider": "blog_new_category_form.new_category_form_data_source",
-                                        "toolbarContainer": "${ $.parentName }",
-                                        "formSubmitType": "ajax"
-                                    }
-                                }
                             }
+
                         }
                     }
                 }

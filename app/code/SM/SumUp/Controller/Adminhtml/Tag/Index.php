@@ -45,7 +45,7 @@ class Index extends Action
      */
     public function execute()
     {
-//        echo 12312;
+
         $resultPage = $this->resultPageFactory->create();
         $resultPage->getConfig()->getTitle()->prepend(__('Tags'));
         return $resultPage;

@@ -66,9 +66,9 @@ class Edit extends Container
                                 'target' => '#edit_form'
                             ]
                         ]
-                    ],
-                    'class_name'     => \Magento\Ui\Component\Control\Container::SPLIT_BUTTON,
-                    'options'        => $this->getOptions($post),
+                    ]
+//                    'class_name'     => \Magento\Ui\Component\Control\Container::SPLIT_BUTTON,
+//                    'options'        => $this->getOptions($post),
                 ],
                 -100
             );
@@ -89,66 +89,11 @@ class Edit extends Container
                 ],
                 -100
             );
-            if ($post->getId() && !$this->_request->getParam('duplicate')) {
-                $this->buttonList->add(
-                    'duplicate',
-                    [
-                        'label'   => __('Duplicate'),
-                        'class'   => 'duplicate',
-                        'onclick' => sprintf("location.href = '%s';", $this->getDuplicateUrl()),
-                    ],
-                    -101
-                );
-            } else {
-                $this->buttonList->remove('delete');
-            }
+
         }
     }
 
-    /**
-     * Retrieve options
-     *
-     * @param Post $post
-     *
-     * @return array
-     */
-    protected function getOptions($post)
-    {
-        if ($post->getId() && !$this->_request->getParam('duplicate')) {
-            $options[] = [
-                'id_hard'        => 'save_and_draft',
-                'label'          => __('Save as Draft'),
-                'data_attribute' => [
-                    'mage-init' => [
-                        'button' => [
-                            'event'     => 'save',
-                            'target'    => '#edit_form',
-                            'eventData' => [
-                                'action' => ['args' => ['action' => 'draft']]
-                            ],
-                        ]
-                    ]
-                ]
-            ];
-        }
-        $options[] = [
-            'id_hard'        => 'save_and_history',
-            'label'          => __(' Save & add History'),
-            'data_attribute' => [
-                'mage-init' => [
-                    'button' => [
-                        'event'     => 'save',
-                        'target'    => '#edit_form',
-                        'eventData' => [
-                            'action' => ['args' => ['action' => 'add']]
-                        ],
-                    ]
-                ]
-            ]
-        ];
 
-        return $options;
-    }
 
     /**
      * Retrieve text for header element depending on loaded Post

@@ -47,6 +47,7 @@ class Edit extends Post
     {
 
         $post      = $this->initPost();
+
         $duplicate = $this->getRequest()->getParam('duplicate');
 
         if (!$post) {
@@ -56,9 +57,11 @@ class Edit extends Post
             return $resultRedirect;
         }
 
-        $data = $this->_session->getData('sumup_blog_post_data', true);
+        $data = $this->_session->getData('sumup_post_data', true);
+
         if (!empty($data)) {
             $post->setData($data);
+
         }
 
         $this->coreRegistry->register('sm_blog_post', $post);

@@ -6,5 +6,7 @@
         <add id="SM_SumUp::tag" title="Manage Tags" module="SM_SumUp" sortOrder="20" action="sumup/tag" resource="SM_SumUp::tag" parent="SM_SumUp::blog"/>
         <add id="SM_SumUp::category" title="Categories" module="SM_SumUp" sortOrder="40" action="sumup/category" resource="SM_SumUp::category" parent="SM_SumUp::blog"/>
         <add id="SM_SumUp::author" title="Manage Authors" module="SM_SumUp" sortOrder="50" action="sumup/author" resource="SM_SumUp::author" parent="SM_SumUp::blog"/>
+        <add id="SM_SumUp::config" title="Configuration" module="SM_SumUp" sortOrder="1000"
+             action="admin/system_config/edit/section/sumup" resource="Mageplaza_Blog::configuration" parent="SM_SumUp::blog"/>
     </menu>
 </config>

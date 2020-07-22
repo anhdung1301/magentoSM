@@ -19,7 +19,7 @@
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
-namespace SM\SumUP\Helper;
+namespace SM\SumUp\Helper;
 
 use DateTimeZone;
 use Exception;

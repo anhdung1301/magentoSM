@@ -9,15 +9,15 @@
         <referenceContainer name="left">
             <block class="SM\SumUp\Block\Adminhtml\Post\Edit\Tabs" name="sumup_blog_post_tabs">
                 <block class="SM\SumUp\Block\Adminhtml\Post\Edit\Tab\Post" name="sumup_blog_post_edit_tab_post"/>
-<!--                <block class="SM\SumUp\Block\Adminhtml\Post\Edit\Tab\Product" name="sumup_blog_post_edit_tab_product"/>-->
+                <block class="SM\SumUp\Block\Adminhtml\Post\Edit\Tab\Product" name="sumup_blog_post_edit_tab_product"/>
                 <action method="addTab">
                     <argument name="name" xsi:type="string">post</argument>
                     <argument name="block" xsi:type="string">sumup_blog_post_edit_tab_post</argument>
                 </action>
-<!--                <action method="addTab">-->
-<!--                    <argument name="name" xsi:type="string">product</argument>-->
-<!--                    <argument name="block" xsi:type="string">sumup_blog_post_edit_tab_product</argument>-->
-<!--                </action>-->
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">product</argument>
+                    <argument name="block" xsi:type="string">sumup_blog_post_edit_tab_product</argument>
+                </action>
             </block>
         </referenceContainer>
     </body>

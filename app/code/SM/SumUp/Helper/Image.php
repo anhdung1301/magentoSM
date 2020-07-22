@@ -85,6 +85,7 @@ class Image extends AbstractData
             $data['image'] = '';
         } else {
             try {
+
                 $uploader = $this->uploaderFactory->create(['fileId' => $fileName]);
                 $uploader->setAllowedExtensions(['jpg', 'jpeg', 'gif', 'png']);
                 $uploader->setAllowRenameFiles(true);
