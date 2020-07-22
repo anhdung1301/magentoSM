@@ -1,79 +1,169 @@
 <?php
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
+
 
 namespace SM\SumUp\Controller\Adminhtml\Category;
 
 use Magento\Backend\App\Action\Context;
 use Magento\Backend\Model\View\Result\Page;
-use Magento\Backend\Model\View\Result\Redirect;
-use Magento\Framework\App\Action\HttpGetActionInterface;
+use Magento\Catalog\Model\Category as CategoryModel;
+use Magento\Framework\Controller\Result\Json;
+use Magento\Framework\Controller\Result\JsonFactory;
 use Magento\Framework\Controller\ResultInterface;
+use Magento\Framework\DataObject;
 use Magento\Framework\Registry;
 use Magento\Framework\View\Result\PageFactory;
-use SM\SumUp\Model\Category;
+use SM\SumUp\Controller\Adminhtml\Category;
+use SM\SumUp\Model\CategoryFactory;
 
-class Edit extends \SM\SumUp\Controller\Adminhtml\Category implements HttpGetActionInterface
+/**
+ * Class Edit
+ * @package SM\SumUp\Controller\Adminhtml\Category
+ */
+class Edit extends Category
 {
     /**
-     * Authorization level of a basic admin session
+     * Page factory
      *
-     * @see _isAllowed()
-     */
-    const ADMIN_RESOURCE = 'SM_SumUp::save';
-    /**
      * @var PageFactory
      */
-    protected $resultPageFactory;
+    public $resultPageFactory;
 
     /**
-     * @param Context $context
-     * @param Registry $coreRegistry
+     * Result JSON factory
+     *
+     * @var JsonFactory
+     */
+    public $resultJsonFactory;
+
+    /**
+     * @var DataObject
+     */
+    public $dataObject;
+
+    /**
+     * Edit constructor.
+     *
+     * @param DataObject $dataObject
      * @param PageFactory $resultPageFactory
+     * @param JsonFactory $resultJsonFactory
+     * @param CategoryFactory $categoryFactory
+     * @param Registry $registry
+     * @param Context $context
      */
     public function __construct(
         Context $context,
-        Registry $coreRegistry,
-        PageFactory $resultPageFactory
+        Registry $registry,
+        CategoryFactory $categoryFactory,
+        DataObject $dataObject,
+        PageFactory $resultPageFactory,
+        JsonFactory $resultJsonFactory
     ) {
+        $this->dataObject        = $dataObject;
         $this->resultPageFactory = $resultPageFactory;
-        parent::__construct($context, $coreRegistry);
+        $this->resultJsonFactory = $resultJsonFactory;
+
+        parent::__construct($context, $registry, $categoryFactory);
     }
 
     /**
-     * Edit condition
+     * Edit Blog category page
      *
      * @return ResultInterface
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      * @SuppressWarnings(PHPMD.NPathComplexity)
      */
     public function execute()
     {
+        ini_set('display_errors', 1);
 
-        // 1. Get ID and create model
-        $id = $this->getRequest()->getParam('category_id');
-        $model = $this->_objectManager->create(Category::class);
-        // 2. Initial checking
-        if ($id) {
-            $model->load($id);
-            if (!$model->getId()) {
-                $this->messageManager->addErrorMessage(__('This block no longer exists.'));
-                /** @var Redirect $resultRedirect */
-                $resultRedirect = $this->resultRedirectFactory->create();
-                return $resultRedirect->setPath('*/*/');
-            }
+        $categoryId = (int) $this->getRequest()->getParam('id');
+        $duplicate  = $this->getRequest()->getParam('duplicate');
+        $category   = $this->initCategory();
+        if ($duplicate) {
+            $category->setId(null);
+            $category->setData('duplicate', true);
+            $categoryId = null;
         }
-        $this->_coreRegistry->register('sm_blog_category', $model);
-        // 5. Build edit form
+        if (!$category) {
+            $resultRedirect = $this->resultRedirectFactory->create();
+            $resultRedirect->setPath('*');
+
+            return $resultRedirect;
+        }
+
+        /**
+         * Check if we have data in session (if during Blog category save was exception)
+         */
+        $data = $this->_getSession()->getData('mageplaza_blog_category_data', true);
+        if (isset($data['category'])) {
+            $category->addData($data['category']);
+        }
+
+        $this->coreRegistry->register('category', $category);
+
         /** @var Page $resultPage */
         $resultPage = $this->resultPageFactory->create();
-        $this->initPage($resultPage)->addBreadcrumb(
-            $id ? __('Edit Category') : __('New Category'),
-            $id ? __('Edit Category') : __('New Category')
-        );
-        $resultPage->getConfig()->getTitle()->prepend(__('Category'));
-        $resultPage->getConfig()->getTitle()->prepend($model->getId() ? __('Edit Category') : __('New Category'));
+
+        /** Build response for ajax request */
+        if ($this->getRequest()->getQuery('isAjax')) {
+            // prepare breadcrumbs of selected Blog category, if any
+            $breadcrumbsPath = $category->getPath();
+            if (empty($breadcrumbsPath)) {
+                // but if no Blog category, and it is deleted - prepare breadcrumbs from path, saved in session
+                $breadcrumbsPath = $this->_objectManager->get('Magento\Backend\Model\Auth\Session')
+                    ->getDeletedPath(true);
+                if (!empty($breadcrumbsPath)) {
+                    $breadcrumbsPath = explode('/', $breadcrumbsPath);
+                    // no need to get parent breadcrumbs if deleting Blog category level 1
+                    if (count($breadcrumbsPath) <= 1) {
+                        $breadcrumbsPath = '';
+                    } else {
+                        array_pop($breadcrumbsPath);
+                        $breadcrumbsPath = implode('/', $breadcrumbsPath);
+                    }
+                }
+            }
+
+            $layout        = $resultPage->getLayout();
+            $content       = $layout->getBlock('sumup.blog.category.edit')->getFormHtml()
+                . $layout->getBlock('sm.blog.category.tree')
+                    ->getBreadcrumbsJavascript($breadcrumbsPath, 'editingCategoryBreadcrumbs');
+            $eventResponse = $this->dataObject->addData([
+                'content'  => $content,
+                'messages' => $layout->getMessagesBlock()->getGroupedHtml(),
+                'toolbar'  => $layout->getBlock('page.actions.toolbar')->toHtml()
+            ]);
+
+            $this->_eventManager->dispatch(
+                'mageplaza_blog_category_prepare_ajax_response',
+                ['response' => $eventResponse, 'controller' => $this]
+            );
+
+            /** @var Json $resultJson */
+            $resultJson = $this->resultJsonFactory->create();
+            $resultJson->setHeader('Content-type', 'application/json', true);
+            $resultJson->setData($eventResponse->getData());
+
+            return $resultJson;
+        }
+
+        $resultPage->setActiveMenu('SM_SumUp::category');
+        $resultPage->getConfig()->getTitle()->prepend(__('Categories'));
+
+        if ($categoryId) {
+            $title = __('%1 (ID: %2)', $category->getName(), $categoryId);
+        } else {
+            $parentId = (int) $this->getRequest()->getParam('parent');
+            if ($parentId && $parentId != CategoryModel::TREE_ROOT_ID) {
+                $title = __('New Child Category');
+            } else {
+                $title = __('New Root Category');
+            }
+        }
+        $resultPage->getConfig()->getTitle()->prepend($title);
+
+        $resultPage->addBreadcrumb(__('Manage Categories'), __('Manage Categories'));
+
         return $resultPage;
     }
 }

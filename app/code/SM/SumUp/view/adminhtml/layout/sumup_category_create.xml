@@ -4,7 +4,7 @@
     <update handle="styles"/>
     <body>
         <referenceContainer name="content">
-            <uiComponent name="sumup_category_listing"/>
+            <uiComponent name="blog_new_category_form"/>
         </referenceContainer>
     </body>
 </page>

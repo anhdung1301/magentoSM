@@ -1,52 +1,50 @@
 <?php
-/**
- *
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
+
+
 namespace SM\SumUp\Controller\Adminhtml\Category;
 
-use Magento\Framework\App\Action\HttpPostActionInterface;
+use Exception;
+use Magento\Framework\Controller\Result\Redirect;
+use SM\SumUp\Controller\Adminhtml\Category;
 
-
-class Delete extends \SM\SumUp\Controller\Adminhtml\Category implements HttpPostActionInterface
+/**
+ * Class Delete
+ * @package SM\SumUp\Controller\Adminhtml\Category
+ */
+class Delete extends Category
 {
     /**
-     * Authorization level of a basic admin session
-     *
-     * @see _isAllowed()
-     */
-    const ADMIN_RESOURCE = 'SM_SumUp::save';
-    /**
-     * @return ResponseInterface|Redirect|ResultInterface
+     * @return Redirect
      */
     public function execute()
     {
-        /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
         $resultRedirect = $this->resultRedirectFactory->create();
-        // check if we know what should be deleted
-        $id = $this->getRequest()->getParam('category_id');
-
-        if ($id) {
+        if ($id = $this->getRequest()->getParam('id')) {
             try {
-                // init model and delete
-                $model = $this->_objectManager->create(\NiceForNow\HairCare\Model\Condition::class);
-                $model->load($id);
-                $model->delete();
-                // display success message
-                $this->messageManager->addSuccessMessage(__('You deleted the category.'));
-                // go to grid
-                return $resultRedirect->setPath('*/*/');
-            } catch (\Exception $e) {
+                $this->categoryFactory->create()
+                    ->load($id)
+                    ->delete();
+
+                $this->messageManager->addSuccessMessage(__('The Blog Category has been deleted.'));
+
+                $resultRedirect->setPath('sumup/*/');
+
+                return $resultRedirect;
+            } catch (Exception $e) {
                 // display error message
                 $this->messageManager->addErrorMessage($e->getMessage());
                 // go back to edit form
-                return $resultRedirect->setPath('*/*/edit', ['category_id' => $id]);
+                $resultRedirect->setPath('sumup/*/edit', ['id' => $id]);
+
+                return $resultRedirect;
             }
         }
+
         // display error message
-        $this->messageManager->addErrorMessage(__('We can\'t find a Condition to delete.'));
+        $this->messageManager->addErrorMessage(__('Blog Category to delete was not found.'));
         // go to grid
-        return $resultRedirect->setPath('*/*/index');
+        $resultRedirect->setPath('sumup/*/');
+
+        return $resultRedirect;
     }
 }

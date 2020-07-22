@@ -1,5 +1,6 @@
 <?php
 namespace SM\SumUp\Model\ResourceModel\Post;
+use Zend_Db_Select;
 
 class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
 {

@@ -58,6 +58,11 @@
                 comment="Category Created At"/>
         <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="true" default="CURRENT_TIMESTAMP"
                 comment="Category Updated At"/>
+        <column xsi:type="int" name="parent_id" padding="11" nullable="true" comment="Category Parent ID"/>
+        <column xsi:type="varchar" name="path" nullable="true" length="255" comment="Category Path"/>
+        <column xsi:type="int" name="position" padding="11" nullable="true" comment="Category Position"/>
+        <column xsi:type="int" name="level" padding="11" nullable="true" comment="Category Level"/>
+        <column xsi:type="int" name="children_count" padding="11" nullable="true" comment="Category Children Count"/>
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="category_id"/>
         </constraint>

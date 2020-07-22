@@ -1,15 +1,14 @@
 <?xml version="1.0"?>
-<!--
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
--->
-<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <update handle="editor"/>
     <body>
         <referenceContainer name="content">
-            <uiComponent name="sumup_category_form"/>
+            <block class="SM\SumUp\Block\Adminhtml\Category\Edit" name="sumup.blog.category.edit" template="category/edit.phtml"/>
+        </referenceContainer>
+        <referenceContainer name="left" htmlClass="admin__scope-old" htmlTag="div"/>
+        <referenceContainer name="left">
+            <block class="SM\SumUp\Block\Adminhtml\Category\Tree" name="sm.blog.category.tree" template="Magento_Catalog::catalog/category/tree.phtml"/>
         </referenceContainer>
     </body>
 </page>
