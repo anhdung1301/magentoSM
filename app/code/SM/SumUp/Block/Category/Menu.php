@@ -111,37 +111,6 @@ class Menu extends Template
         return $html;
     }
 
-    /**
-     * @param Category $parentCategory
-     *
-     * @return string
-     */
-    public function getPortoMenuHtml($parentCategory)
-    {
-        $categoryUrl = th('category/' . $parentCategory->getUrlKey());
-        $html        = '<li class="ui-menu-item level' . $parentCategory->getLevel() . ' parent" role="presentation">'
-            . '<div class="open-children-toggle"></div>'
-            . '<a href="' . $categoryUrl . '" class="ui-corner-all" tabindex="-1" role="menuitem">'
-            . '<span>' . $parentCategory->getName() . '</span></a>';
-
-        $childCategories = $this->getChildCategory($parentCategory->getId());
-
-        if (count($childCategories) > 0) {
-            $html .= '<ul class="subchildmenu level' . $parentCategory->getLevel() . ''
-                . ' ui-widget-content ui-corner-all"'
-                . ' role="menu" aria-expanded="false"'
-                . ' aria-hidden="true">';
-
-            /** @var Category $childCategory */
-            foreach ($childCategories as $childCategory) {
-                $html .= $this->getMenuHtml($childCategory);
-            }
-            $html .= '</ul>';
-        }
-        $html .= '</li>';
-
-        return $html;
-    }
 
     /**
      * @return string

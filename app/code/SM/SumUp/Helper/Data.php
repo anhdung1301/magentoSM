@@ -276,7 +276,8 @@ class Data extends CoreHelper
      */
     public function getSidebarLayout($storeId = null)
     {
-        $sideBarConfig = $this->getConfigValue(self::CONFIG_MODULE_PATH . '/sidebar/sidebar_left_right', $storeId);
+//        $sideBarConfig = $this->getConfigValue(self::CONFIG_MODULE_PATH . '/sidebar/sidebar_left_right', $storeId);
+        $sideBarConfig = 0;
         if ($sideBarConfig == 0) {
             return SideBarLR::LEFT;
         }
@@ -369,7 +370,7 @@ class Data extends CoreHelper
                 break;
             case self::TYPE_CATEGORY:
                 $collection->join(
-                    ['category' => $collection->getTable('mageplaza_blog_post_category')],
+                    ['category' => $collection->getTable('sm_blog_post_category')],
                     'main_table.post_id=category.post_id AND category.category_id=' . $id,
                     ['position']
                 );

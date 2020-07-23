@@ -256,12 +256,6 @@ class Frontend extends Template
         return $html;
     }
 
-    /**
-     * @param $post
-     *
-     * @return int
-     */
-
 
     /**
      * get list category html of post
@@ -322,7 +316,7 @@ class Frontend extends Template
      */
     public function getDefaultImageUrl()
     {
-        return $this->getViewFileUrl('Mageplaza_Blog::media/images/mageplaza-logo-default.png');
+        return $this->getViewFileUrl('SM_SumUp::media/images/mageplaza-logo-default.png');
     }
 
     /**
@@ -330,6 +324,6 @@ class Frontend extends Template
      */
     public function getDefaultAuthorImage()
     {
-        return $this->getViewFileUrl('Mageplaza_Blog::media/images/no-artist-image.jpg');
+        return $this->getViewFileUrl('SM_SumUp::media/images/no-artist-image.jpg');
     }
 }

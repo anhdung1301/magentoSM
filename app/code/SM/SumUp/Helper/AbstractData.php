@@ -63,15 +63,7 @@ class AbstractData extends AbstractHelper
         parent::__construct($context);
     }
 
-    /**
-     * @param null $storeId
-     *
-     * @return bool
-     */
-    public function isEnabled($storeId = null)
-    {
-        return $this->getConfigGeneral('enabled', $storeId);
-    }
+
 
     /**
      * @param string $code

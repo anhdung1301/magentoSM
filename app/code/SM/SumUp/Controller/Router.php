@@ -48,37 +48,20 @@ class Router implements RouterInterface
      */
     public function match(RequestInterface $request)
     {
-        if (!$this->helper->isEnabled()) {
-            return null;
-        }
-
-        $rssAction  = "rss.xml";
         $identifier = trim($request->getPathInfo(), '/');
-        $urlSuffix  = $this->helper->getUrlSuffix();
-
-        if ($length = strlen($urlSuffix)) {
-            if (substr($identifier, -$length) === $urlSuffix && !$this->isRss($identifier)) {
-                $identifier = substr($identifier, 0, strlen($identifier) - $length);
-            } else {
-                $identifier = $this->checkRssIdentifier($identifier);
-            }
-        } elseif (strpos($identifier, $rssAction) !== false) {
-            $identifier = $this->checkRssIdentifier($identifier);
-        }
-
         $routePath = explode('/', $identifier);
+
         $routeSize = count($routePath);
         if (!$routeSize || ($routeSize > 3) || (array_shift($routePath) !== $this->helper->getRoute())) {
             return null;
         }
-
-        $request->setModuleName('mpblog')
-            ->setAlias(Url::REWRITE_REQUEST_PATH_ALIAS, $identifier . $urlSuffix);
+        $request->setModuleName('sumup')
+            ->setAlias(Url::REWRITE_REQUEST_PATH_ALIAS, $identifier );
         $controller = array_shift($routePath);
         if (!$controller) {
             $request->setControllerName('post')
                 ->setActionName('index')
-                ->setPathInfo('/mpblog/post/index');
+                ->setPathInfo('index');
 
             return $this->actionFactory->create(Forward::class);
         }
@@ -88,6 +71,7 @@ class Router implements RouterInterface
         switch ($controller) {
             case 'post':
                 if (!in_array($action, ['index', 'rss'])) {
+
                     $post = $this->helper->getObjectByParam($action, 'url_key');
                     $request->setParam('id', $post->getId());
                     $action = 'view';
@@ -105,21 +89,10 @@ class Router implements RouterInterface
                 $request->setParam('id', $tag->getId());
                 $action = 'view';
                 break;
-            case 'topic':
-                $topic = $this->helper->getObjectByParam($action, 'url_key', Data::TYPE_TOPIC);
-                $request->setParam('id', $topic->getId());
-                $action = 'view';
-                break;
-            case 'sitemap':
-                $action = 'index';
-                break;
+
             case 'author':
                 $author = $this->helper->getObjectByParam($action, 'url_key', Data::TYPE_AUTHOR);
                 $request->setParam('id', $author->getId());
-                $action = 'view';
-                break;
-            case 'month':
-                $request->setParam('month_key', $action);
                 $action = 'view';
                 break;
             default:
@@ -129,44 +102,13 @@ class Router implements RouterInterface
                 $action     = 'view';
         }
 
+
         $request->setControllerName($controller)
             ->setActionName($action)
-            ->setPathInfo('/mpblog/' . $controller . '/' . $action);
+            ->setPathInfo('/sumup/' . $controller . '/' . $action);
 
         return $this->actionFactory->create(Forward::class);
     }
 
-    /**
-     * check if action = rss
-     *
-     * @param $identifier
-     *
-     * @return bool
-     */
-    public function isRss($identifier)
-    {
-        $routePath = explode('/', $identifier);
-        $routePath = array_pop($routePath);
-        $routePath = explode('.', $routePath);
-        $action    = array_shift($routePath);
 
-        return $action === 'rss';
-    }
-
-    /**
-     * @param $identifier
-     *
-     * @return bool|null|string
-     */
-    public function checkRssIdentifier($identifier)
-    {
-        $length = strlen(self::URL_SUFFIX_RSS_XML);
-        if (substr($identifier, -$length) == self::URL_SUFFIX_RSS_XML && $this->isRss($identifier)) {
-            $identifier = substr($identifier, 0, strlen($identifier) - $length);
-
-            return $identifier;
-        }
-
-        return null;
-    }
 }
