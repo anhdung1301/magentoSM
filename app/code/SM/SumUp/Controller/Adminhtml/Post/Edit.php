@@ -47,9 +47,6 @@ class Edit extends Post
     {
 
         $post      = $this->initPost();
-
-        $duplicate = $this->getRequest()->getParam('duplicate');
-
         if (!$post) {
             $resultRedirect = $this->resultRedirectFactory->create();
             $resultRedirect->setPath('*');
@@ -61,17 +58,14 @@ class Edit extends Post
 
         if (!empty($data)) {
             $post->setData($data);
-
         }
-
         $this->coreRegistry->register('sm_blog_post', $post);
-
         /** @var \Magento\Backend\Model\View\Result\Page|Page $resultPage */
         $resultPage = $this->resultPageFactory->create();
         $resultPage->setActiveMenu('SM_SumUp::post');
         $resultPage->getConfig()->getTitle()->set(__('Posts'));
 
-        $title = $post->getId() && !$duplicate ? $post->getName() : __('New Post');
+        $title = $post->getId() ? $post->getName() : __('New Post');
         $resultPage->getConfig()->getTitle()->prepend($title);
 
         return $resultPage;

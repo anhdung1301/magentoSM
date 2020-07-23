@@ -413,4 +413,9 @@ class Post extends AbstractModel
 
         return $this->nextPostCollection;
     }
+    public function getDataByName($name){
+        $collection = $this->postCollectionFactory->create()
+            ->addFieldToFilter('name',$name);
+        return $collection->getData();
+    }
 }

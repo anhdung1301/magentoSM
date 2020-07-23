@@ -324,7 +324,7 @@ class Data extends CoreHelper
      */
     public function getRoute($store = null)
     {
-        return $this->getConfigGeneral('url_prefix', $store) ?: 'blog';
+        return $this->getConfigGeneral('url_prefix', $store) ?: 'sumup';
     }
 
     /**
@@ -361,7 +361,7 @@ class Data extends CoreHelper
         }
 
         /** @var PostCollection $collection */
-        $collection = $this->getPostList($storeId);
+        $collection = $this->getPostList();
 
         switch ($type) {
             case self::TYPE_AUTHOR:
@@ -396,10 +396,10 @@ class Data extends CoreHelper
      * @return PostCollection
      * @throws NoSuchEntityException
      */
-    public function getPostList($storeId = null)
+    public function getPostList()
     {
         /** @var PostCollection $collection */
-        $collection = $this->getObjectList(self::TYPE_POST, $storeId)
+        $collection = $this->getObjectList(self::TYPE_POST)
             ->addFieldToFilter('publish_date', ['to' => $this->dateTime->date()])
             ->setOrder('publish_date', 'desc');
 
@@ -434,7 +434,7 @@ class Data extends CoreHelper
      * @return AuthorCollection|CategoryCollection|PostCollection|TagCollection|Collection
      * @throws NoSuchEntityException
      */
-    public function getObjectList($type = null, $storeId = null)
+    public function getObjectList($type = null)
     {
         /** @var AuthorCollection|CategoryCollection|PostCollection|TagCollection|Collection $collection */
         $collection = $this->getFactoryByType($type)
@@ -442,31 +442,10 @@ class Data extends CoreHelper
             ->getCollection()
             ->addFieldToFilter('enabled', 1);
 
-        $this->addStoreFilter($collection, $storeId);
 
         return $collection;
     }
 
-    /**
-     * @param $collection
-     * @param null $storeId
-     *
-     * @return mixed
-     * @throws NoSuchEntityException
-     */
-    public function addStoreFilter($collection, $storeId = null)
-    {
-        if ($storeId === null) {
-            $storeId = $this->storeManager->getStore()->getId();
-        }
-
-        $collection->addFieldToFilter('store_ids', [
-            ['finset' => Store::DEFAULT_STORE_ID],
-            ['finset' => $storeId]
-        ]);
-
-        return $collection;
-    }
 
     /**
      * @param $post
@@ -493,18 +472,18 @@ class Data extends CoreHelper
      *
      * @return string
      */
-    public function getBlogUrl($urlKey = null, $type = null, $store = null)
+    public function getBlogUrl($urlKey = null, $type = null)
     {
         if (is_object($urlKey)) {
             $urlKey = $urlKey->getUrlKey();
         }
 
         $urlKey = ($type ? $type . '/' : '') . $urlKey;
-        $url    = $this->getUrl($this->getRoute($store) . '/' . $urlKey);
+
+        $url    = $this->getUrl($this->getRoute() . '/' . $urlKey);
         $url    = explode('?', $url);
         $url    = $url[0];
-
-        return rtrim($url, '/') . $this->getUrlSuffix($store);
+        return rtrim($url, '/') . $this->getUrlSuffix();
     }
 
     /**

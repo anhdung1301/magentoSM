@@ -16,8 +16,8 @@
         <column xsi:type="varchar" name="image" nullable="true" length="255" comment="Post Image"/>
         <column xsi:type="varchar" name="url_key" nullable="true" length="255" comment="Post URL Key"/>
         <column xsi:type="int" name="author_id" padding="10" unsigned="true" nullable="true" comment="Author ID"/>
-        <column xsi:type="datetime" name="publish_date_from" comment="Page Custom Theme Active From Date"/>
-        <column xsi:type="datetime" name="publish_date_to" comment="Page Custom Theme Active To Date"/>
+        <column xsi:type="timestamp" name="publish_date" comment="Page Custom Theme Active From Date"/>
+        <column xsi:type="timestamp" name="publish_date_to" comment="Page Custom Theme Active To Date"/>
         <column xsi:type="timestamp" name="created_at" on_update="false" nullable="true" default="CURRENT_TIMESTAMP"
                 comment="Post Created At"/>
         <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="true" default="CURRENT_TIMESTAMP"

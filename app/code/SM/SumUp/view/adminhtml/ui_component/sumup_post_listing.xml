@@ -192,7 +192,7 @@
                 </item>
             </argument>
         </column>
-        <column name="publish_date_from" class="Magento\Ui\Component\Listing\Columns\Date">
+        <column name="publish_date" class="Magento\Ui\Component\Listing\Columns\Date">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">dateRange</item>

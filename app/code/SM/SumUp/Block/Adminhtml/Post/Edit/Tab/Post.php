@@ -184,7 +184,8 @@ class Post extends Generic implements TabInterface
         $fieldset->addField('short_description', 'textarea', [
             'name'  => 'short_description',
             'label' => __('Short Description'),
-            'title' => __('Short Description')
+            'title' => __('Short Description'),
+            'required' => true
         ]);
         $fieldset->addField('description', 'editor', [
             'name'   => 'description',
@@ -194,7 +195,8 @@ class Post extends Generic implements TabInterface
                 'add_variables'  => false,
                 'add_widgets'    => true,
                 'add_directives' => true
-            ])
+            ]),
+            'required' => true
         ]);
 
         $fieldset->addField('image', \SM\SumUp\Block\Adminhtml\Renderer\Image::class, [
@@ -202,7 +204,9 @@ class Post extends Generic implements TabInterface
             'label' => __('Image'),
             'title' => __('Image'),
             'path'  => $this->imageHelper->getBaseMediaPath(Image::TEMPLATE_MEDIA_TYPE_POST),
-            'note'  => __('The appropriate size is 265px * 250px.')
+            'note'  => __('The appropriate size is 265px * 250px.'),
+            'required' => true
+
         ]);
         $fieldset->addField('categories_ids', Category::class, [
             'name'  => 'categories_ids',
@@ -224,10 +228,10 @@ class Post extends Generic implements TabInterface
             $post->setTagsIds($post->getTagIds());
         }
         $fieldset->addField(
-            'publish_date_from',
+            'publish_date',
             'date',
             [
-                'name'        => 'publish_date_from',
+                'name'        => 'publish_date',
                 'label'       => __('Publish Date'),
                 'title'       => __('Publish Date'),
                 'date_format' => 'yyyy-MM-dd',
@@ -254,11 +258,11 @@ class Post extends Generic implements TabInterface
         ]);
 
         /** Get the public_date from database */
-        if ($post->getData('publish_date_from')) {
+        if ($post->getData('publish_date')) {
             $publicDateTime = new \DateTime($post->getData('publish_date'), new DateTimeZone('UTC'));
             $publicDateTime->setTimezone(new DateTimeZone($this->_localeDate->getConfigTimezone()));
             $publicDateTime = $publicDateTime->format('m/d/Y H:i:s');
-            $post->setData('publish_date_from', $publicDateTime);
+            $post->setData('publish_date', $publicDateTime);
         }
 
         $form->addValues($post->getData());

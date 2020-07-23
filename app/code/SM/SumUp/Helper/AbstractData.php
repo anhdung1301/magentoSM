@@ -18,7 +18,7 @@ use Magento\Store\Model\StoreManagerInterface;
 
 class AbstractData extends AbstractHelper
 {
-    const CONFIG_MODULE_PATH = 'mageplaza';
+    const CONFIG_MODULE_PATH = 'sumup';
 
     /**
      * @type array
@@ -79,11 +79,10 @@ class AbstractData extends AbstractHelper
      *
      * @return mixed
      */
-    public function getConfigGeneral($code = '', $storeId = null)
+    public function getConfigGeneral($code = '')
     {
         $code = ($code !== '') ? '/' . $code : '';
-
-        return $this->getConfigValue(static::CONFIG_MODULE_PATH . '/general' . $code, $storeId);
+        return $this->getConfigValue( 'sumup/general' . $code);
     }
 
     /**
