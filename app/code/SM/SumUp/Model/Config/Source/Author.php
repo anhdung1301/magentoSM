@@ -37,7 +37,7 @@ class Author implements ArrayInterface
         return $options;
     }
 
-    /**
+    /**Collection
      * @return AbstractCollection
      */
     public function getAuthors()

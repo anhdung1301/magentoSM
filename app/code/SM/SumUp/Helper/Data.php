@@ -401,7 +401,8 @@ class Data extends CoreHelper
     {
         /** @var PostCollection $collection */
         $collection = $this->getObjectList(self::TYPE_POST)
-            ->addFieldToFilter('publish_date', ['to' => $this->dateTime->date()])
+            ->addFieldToFilter('publish_date', ['lteq' => $this->dateTime->date()])
+//            ->addFieldToFilter('publish_date_to', ['gteq' => $this->dateTime->date()])
             ->setOrder('publish_date', 'desc');
 
         return $collection;
@@ -596,9 +597,9 @@ class Data extends CoreHelper
         $dateTime = new \DateTime($date, new DateTimeZone('UTC'));
         $dateTime->setTimezone(new DateTimeZone($this->getTimezone()));
 
-        $dateType = $this->getBlogConfig($monthly ? 'monthly_archive/date_type_monthly' : 'general/date_type');
 
-        return $dateTime->format($dateType);
+        return $dateTime->format('Y-m-d g:i A');
+
     }
 
     /**

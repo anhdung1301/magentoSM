@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+
+    <update handle="sumup_dafault"/>
     <referenceContainer name="content">
         <block class="SM\SumUp\Block\Post\Listpost" name="sumup.post.list" as="mpblog_post" template="SM_SumUp::Post/list.phtml" cacheable = "false"/>
     </referenceContainer>
+
 </page>

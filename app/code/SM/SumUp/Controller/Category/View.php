@@ -51,7 +51,6 @@ class View extends Action
         $this->resultPageFactory    = $resultPageFactory;
         $this->resultForwardFactory = $resultForwardFactory;
         $this->helperBlog           = $helperBlog;
-
         parent::__construct($context);
     }
 
@@ -63,12 +62,7 @@ class View extends Action
     {
         $id       = $this->getRequest()->getParam('id');
         $category = $this->helperBlog->getFactoryByType(HelperBlog::TYPE_CATEGORY)->create()->load($id);
-
-
         $page = $this->resultPageFactory->create();
-
-        $page->getConfig()->setPageLayout($this->helperBlog->getSidebarLayout());
-
         return $category->getEnabled() ? $page : $this->_redirect('noroute');
     }
 }
