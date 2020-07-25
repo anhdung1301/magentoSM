@@ -119,7 +119,7 @@ class Router implements RouterInterface
 
         $request->setControllerName($controller)
             ->setActionName($action)
-            ->setPathInfo('/sumup');
+            ->setPathInfo('/sumup/' . $controller . '/' . $action);
 
         return $this->actionFactory->create(Forward::class);
     }
