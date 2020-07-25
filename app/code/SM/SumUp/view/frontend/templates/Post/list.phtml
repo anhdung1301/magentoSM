@@ -17,7 +17,6 @@
                 <div class="post-list-item col-mp post-item-list mp-12">
 
                     <div class="post-item-wraper">
-                        <?php if ($post->getImage()) : ?>
                             <div class="post-image">
                                 <a href="<?= $post->getUrl() ?>">
                                     <img class="img-responsive"
@@ -25,8 +24,6 @@
                                          alt="<?= $block->escapeHtml($post->getName()); ?>"/>
                                 </a>
                             </div>
-                        <?php endif; ?>
-
                         <div class="post-info-wraper">
                             <h2 class="mp-post-title">
                                 <a class="post-link-title" title="<?= $block->escapeHtml($post->getName()); ?>"

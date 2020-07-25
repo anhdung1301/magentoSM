@@ -65,7 +65,7 @@ abstract class Author extends Action
         }
 
         if ($register) {
-            $this->coreRegistry->register('mageplaza_blog_author', $author);
+            $this->coreRegistry->register('sm_blog_author', $author);
         }
 
         return $author;

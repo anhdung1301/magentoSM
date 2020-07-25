@@ -11,13 +11,11 @@
             <resource>SM_SumUp::config</resource>
             <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
                 <label>General Configuration</label>
-                <field id="enable" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
-                    <label>Enable Seo URl </label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                <field id="url_suffix" translate="label comment" type="text" sortOrder="16" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="0">
+                    <label>URL Suffix</label>
                 </field>
                 <field id="pagination" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
                     <label>Blogs per Page Allowed Values	</label>
-
                 </field>
             </group>
         </section>

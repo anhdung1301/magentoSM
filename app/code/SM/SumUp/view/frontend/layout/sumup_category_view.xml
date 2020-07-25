@@ -3,7 +3,7 @@
     <update handle="sumup_dafault"/>
     <body>
         <referenceContainer name="content">
-            <block class="SM\SumUp\Block\Category\Listpost" name="sumup.category.post.list" template="SM_SumUp::Post/list.phtml"/>
+            <block class="SM\SumUp\Block\Category\Listpost" name="sumup.category.post.list" template="SM_SumUp::Post/list.phtml" cacheable="false"/>
             <referenceBlock name="catalog.leftnav" remove="true"/>
         </referenceContainer>
 

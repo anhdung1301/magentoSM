@@ -48,20 +48,35 @@ class Router implements RouterInterface
      */
     public function match(RequestInterface $request)
     {
-        $identifier = trim($request->getPathInfo(), '/');
-        $routePath = explode('/', $identifier);
 
+
+        $rssAction  = "rss.xml";
+        $identifier = trim($request->getPathInfo(), '/');
+        $urlSuffix  = $this->helper->getUrlSuffix();
+
+        if ($length = strlen($urlSuffix)) {
+            if (substr($identifier, -$length) === $urlSuffix && !$this->isRss($identifier)) {
+                $identifier = substr($identifier, 0, strlen($identifier) - $length);
+            } else {
+                $identifier = $this->checkRssIdentifier($identifier);
+            }
+        } elseif (strpos($identifier, $rssAction) !== false) {
+            $identifier = $this->checkRssIdentifier($identifier);
+        }
+
+        $routePath = explode('/', $identifier);
         $routeSize = count($routePath);
         if (!$routeSize || ($routeSize > 3) || (array_shift($routePath) !== $this->helper->getRoute())) {
             return null;
         }
+
         $request->setModuleName('sumup')
-            ->setAlias(Url::REWRITE_REQUEST_PATH_ALIAS, $identifier );
+            ->setAlias(Url::REWRITE_REQUEST_PATH_ALIAS, $identifier . $urlSuffix);
         $controller = array_shift($routePath);
         if (!$controller) {
             $request->setControllerName('post')
                 ->setActionName('index')
-                ->setPathInfo('index');
+                ->setPathInfo('/mpblog/post/index');
 
             return $this->actionFactory->create(Forward::class);
         }
@@ -71,7 +86,6 @@ class Router implements RouterInterface
         switch ($controller) {
             case 'post':
                 if (!in_array($action, ['index', 'rss'])) {
-
                     $post = $this->helper->getObjectByParam($action, 'url_key');
                     $request->setParam('id', $post->getId());
                     $action = 'view';
@@ -95,6 +109,7 @@ class Router implements RouterInterface
                 $request->setParam('id', $author->getId());
                 $action = 'view';
                 break;
+
             default:
                 $post = $this->helper->getObjectByParam($controller, 'url_key');
                 $request->setParam('id', $post->getId());
@@ -102,13 +117,44 @@ class Router implements RouterInterface
                 $action     = 'view';
         }
 
-
         $request->setControllerName($controller)
             ->setActionName($action)
-            ->setPathInfo('/sumup/' . $controller . '/' . $action);
+            ->setPathInfo('/sumup');
 
         return $this->actionFactory->create(Forward::class);
     }
 
+    /**
+     * check if action = rss
+     *
+     * @param $identifier
+     *
+     * @return bool
+     */
+    public function isRss($identifier)
+    {
+        $routePath = explode('/', $identifier);
+        $routePath = array_pop($routePath);
+        $routePath = explode('.', $routePath);
+        $action    = array_shift($routePath);
 
+        return $action === 'rss';
+    }
+
+    /**
+     * @param $identifier
+     *
+     * @return bool|null|string
+     */
+    public function checkRssIdentifier($identifier)
+    {
+        $length = strlen(self::URL_SUFFIX_RSS_XML);
+        if (substr($identifier, -$length) == self::URL_SUFFIX_RSS_XML && $this->isRss($identifier)) {
+            $identifier = substr($identifier, 0, strlen($identifier) - $length);
+
+            return $identifier;
+        }
+
+        return null;
+    }
 }

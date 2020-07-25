@@ -15,9 +15,8 @@ $authorName = $author !== null ? $author->getName() : '';
 
 $modifier = $helper->getAuthorByPost($_post, true);
 $modifierName = $modifier !== null ? $modifier->getName() : '';
-$isLogged = ($block->isLoggedIn()) ? 'Yes' : 'No';
-$color = $helper->getBlogConfig('general/font_color');
 ?>
+
 <div class="mp-blog-view">
 
     <div class="mpcss post-view" id="mpblog-list-container">

@@ -139,15 +139,14 @@ class View extends Action
      */
     public function execute()
     {
+
+
+
         $id = $this->getRequest()->getParam('id');
         $post = $this->helperBlog->getFactoryByType(Data::TYPE_POST)->create()->load($id);
-        $this->helperBlog->setCustomerContextId();
-
         $page = $this->resultPageFactory->create();
         $pageLayout = ($post->getLayout() === 'empty') ? $this->helperBlog->getSidebarLayout() : $post->getLayout();
         $page->getConfig()->setPageLayout($pageLayout);
-
-
-        return $this->resultPageFactory->create();
+        return $post->getEnabled() ? $page : $this->_redirect('noroute');
     }
 }

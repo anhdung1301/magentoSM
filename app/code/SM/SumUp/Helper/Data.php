@@ -382,10 +382,6 @@ class Data extends CoreHelper
                     ['position']
                 );
                 break;
-
-            case self::TYPE_MONTHLY:
-                $collection->addFieldToFilter('publish_date', ['like' => $id . '%']);
-                break;
         }
 
         return $collection;
@@ -402,7 +398,13 @@ class Data extends CoreHelper
         /** @var PostCollection $collection */
         $collection = $this->getObjectList(self::TYPE_POST)
             ->addFieldToFilter('publish_date', ['lteq' => $this->dateTime->date()])
-//            ->addFieldToFilter('publish_date_to', ['gteq' => $this->dateTime->date()])
+            -> addFieldToFilter(
+                    ['publish_date_to','publish_date_to'],
+                    [
+                        ['gteq' => $this->dateTime->date()],
+                        ['null'=>true]
+                    ]
+                )
             ->setOrder('publish_date', 'desc');
 
         return $collection;
@@ -502,6 +504,7 @@ class Data extends CoreHelper
             ->load($value, $code);
 
         return $object;
+
     }
 
     /**
@@ -572,7 +575,6 @@ class Data extends CoreHelper
         $select  = $adapter->select()
             ->from($resource->getMainTable(), '*')
             ->where('url_key = :url_key');
-
         $binds = ['url_key' => (string) $urlKey];
 
         if ($id = $object->getId()) {

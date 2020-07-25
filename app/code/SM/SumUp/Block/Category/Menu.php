@@ -76,7 +76,7 @@ class Menu extends Template
     }
 
     public function getUrlBlog(){
-        return $this->getUrl('sumup');
+        return $this->getUrl('sumup/');
     }
     /**
      * @param Category $parentCategory
@@ -85,8 +85,8 @@ class Menu extends Template
      */
     public function getMenuHtml($parentCategory)
     {
-//        $categoryUrl = $this->helper->getBlogUrl('category/' . $parentCategory->getUrlKey());
-        $categoryUrl = $this->getUrlBlog().'category/'.$parentCategory->getUrlKey();
+        $categoryUrl = $this->helper->getBlogUrl('category/' . $parentCategory->getUrlKey());
+//        $categoryUrl = $this->getUrlBlog().'category/'.$parentCategory->getUrlKey();
         $html        = '<li class="level' . $parentCategory->getLevel()
             . ' category-item ui-menu-item" role="presentation">'
             . '<a href="' . $categoryUrl . '" class="ui-corner-all" tabindex="-1" role="menuitem">'

@@ -316,7 +316,7 @@ class Frontend extends Template
      */
     public function getDefaultImageUrl()
     {
-        return $this->getViewFileUrl('SM_SumUp::media/images/mageplaza-logo-default.png');
+        return $this->getViewFileUrl('SM_SumUp::images/captain.jpeg');
     }
 
     /**
