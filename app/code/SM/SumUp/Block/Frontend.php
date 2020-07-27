@@ -324,6 +324,25 @@ class Frontend extends Template
      */
     public function getDefaultAuthorImage()
     {
-        return $this->getViewFileUrl('SM_SumUp::media/images/no-artist-image.jpg');
+        return $this->getViewFileUrl('images/no-artist-image.jpg');
     }
+
+    /**
+     * @param $post
+     * @return string
+     */
+    public function getTagList($post)
+    {
+        $tagCollection = $post->getSelectedTagsCollection();
+        $result        = '';
+        if (!empty($tagCollection)) {
+            $listTags = [];
+            foreach ($tagCollection as $tag) {
+                $listTags[] =  $tag->getName();
+            }
+            $result = implode(', ', $listTags);
+        }
+        return $result;
+    }
+
 }

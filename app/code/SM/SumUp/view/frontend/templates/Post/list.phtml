@@ -35,6 +35,9 @@
                             <div class="post-short-description">
                                 <p><?= $block->maxShortDescription($post->getShortDescription()); ?></p>
                             </div>
+                            <?php if ($tagList = $block->getTagList($post)) : ?>
+                                | <span><i class="fa fa-tags"></i><?= /* @noEscape */ __('Tags: %1', $tagList); ?></span>
+                            <?php endif; ?>
                             <div class="mp-clearfix"></div>
                             <div class="mp-post-meta-info mp-alignright">
                                 <div class="actions">

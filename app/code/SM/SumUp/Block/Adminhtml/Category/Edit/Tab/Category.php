@@ -147,15 +147,15 @@ class Category extends Generic implements TabInterface
 //        ]);
 
 
-        if (!$category->getId()) {
-            $category->addData([
-                'enabled'          => 1,
-                'meta_title'       => $this->_scopeConfig->getValue('blog/seo/meta_title'),
-                'meta_description' => $this->_scopeConfig->getValue('blog/seo/meta_description'),
-                'meta_keywords'    => $this->_scopeConfig->getValue('blog/seo/meta_keywords'),
-                'meta_robots'      => $this->_scopeConfig->getValue('blog/seo/meta_robots'),
-            ]);
-        }
+//        if (!$category->getId()) {
+//            $category->addData([
+//                'enabled'          => 1,
+//                'meta_title'       => $this->_scopeConfig->getValue('blog/seo/meta_title'),
+//                'meta_description' => $this->_scopeConfig->getValue('blog/seo/meta_description'),
+//                'meta_keywords'    => $this->_scopeConfig->getValue('blog/seo/meta_keywords'),
+//                'meta_robots'      => $this->_scopeConfig->getValue('blog/seo/meta_robots'),
+//            ]);
+//        }
 
         $form->addValues($category->getData());
         $this->setForm($form);

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace SM\SumUp\Model;
 
 use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory as ProductCollectionFactory;
@@ -49,14 +48,11 @@ use SM\SumUp\Model\ResourceModel\Tag\CollectionFactory;
  * @method Post setUpdatedAt(string $updatedAt)
  * @method string getUpdatedAt()
  * @method Post setTagsData(array $data)
-
  * @method Post setProductsData(array $data)
  * @method array getTagsData()
  * @method array getProductsData()
-
  * @method Post setIsChangedTagList(bool $flag)
  * @method Post setIsChangedProductList(bool $flag)
-
  * @method Post setIsChangedCategoryList(bool $flag)
  * @method bool getIsChangedTagList()
  * @method bool getIsChangedCategoryList()
@@ -78,101 +74,82 @@ class Post extends AbstractModel
      * @var string
      */
     const CACHE_TAG = 'sm_blog_post';
-
-    /**
-     * Cache tag
-     *
-     * @var string
-     */
-    protected $_cacheTag = 'sm_blog_post';
-
-    /**
-     * Event prefix
-     *
-     * @var string
-     */
-    protected $_eventPrefix = 'sm_blog_post';
-
     /**
      * Tag Collection
      *
      * @var ResourceModel\Tag\Collection
      */
     public $tagCollection;
-
-
-
     /**
      * Blog Category Collection
      *
      * @var ResourceModel\Category\Collection
      */
     public $categoryCollection;
-
     /**
      * Tag Collection Factory
      *
      * @var CollectionFactory
      */
     public $tagCollectionFactory;
-
-
-
     /**
      * Blog Category Collection Factory
      *
      * @var CategoryCollectionFactory
      */
     public $categoryCollectionFactory;
-
     /**
      * Post Collection Factory
      *
      * @var PostCollectionFactory
      */
     public $postCollectionFactory;
-
     /**
      * Related Post Collection
      *
      * @var Collection
      */
     public $relatedPostCollection;
-
     /**
      * Previous Post Collection
      *
      * @var Collection
      */
     public $prevPostCollection;
-
     /**
      * Next Post Collection
      *
      * @var Collection
      */
     public $nextPostCollection;
-
     /**
      * @var DateTime
      */
     public $dateTime;
-
     /**
      * @var Data
      */
     public $helperData;
-
     /**
      * @var ProductCollectionFactory
      */
     public $productCollectionFactory;
-
     /**
      * @var \Magento\Catalog\Model\ResourceModel\Product\Collection
      */
     public $productCollection;
-
+    /**
+     * Cache tag
+     *
+     * @var string
+     */
+    protected $_cacheTag = 'sm_blog_post';
+    /**
+     * Event prefix
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'sm_blog_post';
 
     /**
      * Post constructor.
@@ -182,7 +159,6 @@ class Post extends AbstractModel
      * @param DateTime $dateTime
      * @param Data $helperData
      * @param CollectionFactory $tagCollectionFactory
-
      * @param CategoryCollectionFactory $categoryCollectionFactory
      * @param PostCollectionFactory $postCollectionFactory
      * @param ProductCollectionFactory $productCollectionFactory
@@ -203,27 +179,15 @@ class Post extends AbstractModel
         AbstractDb $resourceCollection = null,
         array $data = []
     ) {
-        $this->tagCollectionFactory      = $tagCollectionFactory;
+        $this->tagCollectionFactory = $tagCollectionFactory;
 
         $this->categoryCollectionFactory = $categoryCollectionFactory;
-        $this->postCollectionFactory     = $postCollectionFactory;
-        $this->productCollectionFactory  = $productCollectionFactory;
-        $this->helperData                = $helperData;
-        $this->dateTime                  = $dateTime;
+        $this->postCollectionFactory = $postCollectionFactory;
+        $this->productCollectionFactory = $productCollectionFactory;
+        $this->helperData = $helperData;
+        $this->dateTime = $dateTime;
         parent::__construct($context, $registry, $resource, $resourceCollection, $data);
     }
-
-    /**
-     * Initialize resource model
-     *
-     * @return void
-     */
-    protected function _construct()
-    {
-        $this->_init(PostResource::class);
-    }
-
-
 
     /**
      * @param bool $shorten
@@ -269,8 +233,8 @@ class Post extends AbstractModel
      */
     public function getDefaultValues()
     {
-        $values                  = [];
-        $values['enabled']       = '1';
+        $values = [];
+        $values['enabled'] = '1';
 
         return $values;
     }
@@ -293,8 +257,6 @@ class Post extends AbstractModel
 
         return $this->tagCollection;
     }
-
-
 
     /**
      * @return ResourceModel\Category\Collection
@@ -327,7 +289,7 @@ class Post extends AbstractModel
             $this->setData('category_ids', $ids);
         }
 
-        return (array) $this->_getData('category_ids');
+        return (array)$this->_getData('category_ids');
     }
 
     /**
@@ -342,7 +304,7 @@ class Post extends AbstractModel
             $this->setData('tag_ids', $ids);
         }
 
-        return (array) $this->_getData('tag_ids');
+        return (array)$this->_getData('tag_ids');
     }
 
     /**
@@ -413,9 +375,21 @@ class Post extends AbstractModel
 
         return $this->nextPostCollection;
     }
-    public function getDataByName($name){
+
+    public function getDataByName($name)
+    {
         $collection = $this->postCollectionFactory->create()
-            ->addFieldToFilter('name',$name);
+            ->addFieldToFilter('name', $name);
         return $collection->getData();
+    }
+
+    /**
+     * Initialize resource model
+     *
+     * @return void
+     */
+    protected function _construct()
+    {
+        $this->_init(PostResource::class);
     }
 }

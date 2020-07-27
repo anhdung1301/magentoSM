@@ -48,19 +48,15 @@ class Router implements RouterInterface
      */
     public function match(RequestInterface $request)
     {
-
-
-        $rssAction  = "rss.xml";
         $identifier = trim($request->getPathInfo(), '/');
         $urlSuffix  = $this->helper->getUrlSuffix();
-
         if ($length = strlen($urlSuffix)) {
             if (substr($identifier, -$length) === $urlSuffix && !$this->isRss($identifier)) {
                 $identifier = substr($identifier, 0, strlen($identifier) - $length);
             } else {
                 $identifier = $this->checkRssIdentifier($identifier);
             }
-        } elseif (strpos($identifier, $rssAction) !== false) {
+        } else{
             $identifier = $this->checkRssIdentifier($identifier);
         }
 

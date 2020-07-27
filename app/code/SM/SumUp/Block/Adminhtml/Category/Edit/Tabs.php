@@ -84,17 +84,7 @@ class Tabs extends \Magento\Backend\Block\Widget\Tabs
                 )
                 ->toHtml()
         ]);
-//        $this->addTab('post', [
-//            'label'   => __('Posts'),
-//            'content' => $this->getLayout()
-//                ->createBlock(
-//                    Tab\Post::class,
-//                    'sm_blog_category_edit_tab_post'
-//                )
-//                ->toHtml()
-//        ]);
 
-        // dispatch event add custom tabs
         $this->_eventManager->dispatch('adminhtml_mageplaza_blog_category_tabs', ['tabs' => $this]);
 
         return parent::_prepareLayout();

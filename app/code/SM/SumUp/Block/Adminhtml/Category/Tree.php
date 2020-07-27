@@ -150,7 +150,6 @@ class Tree extends \Magento\Catalog\Block\Adminhtml\Category\Tree
 
         if ($item = parent::_getNodeJson($node, $level)) {
             $item['url']       = $node->getData('url_key');
-            $item['storeIds']  = $node->getData('store_ids');
             $item['allowDrag'] = $this->_isCategoryMoveable($node) && ($node->getLevel() == 0 ? false : true);
             $item['enabled']   = $node->getData('enabled');
 

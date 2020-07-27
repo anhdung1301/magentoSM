@@ -100,9 +100,6 @@ class Listpost extends Frontend
             ])
                 ->addCrumb($this->helperData->getRoute(), $this->getBreadcrumbsData());
         }
-
-        $this->applySeoCode();
-
         return parent::_prepareLayout();
     }
 
@@ -115,50 +112,13 @@ class Listpost extends Frontend
 
         $data = [
             'label' => $label,
-            'title' => $label
+            'title' => $label,
+            'link' => '/sumup'
         ];
 
-        if ($this->getRequest()->getFullActionName() !== 'mpblog_post_index') {
-            $data['link'] = $this->helperData->getBlogUrl();
-        }
 
         return $data;
     }
-
-    /**
-     * @return $this
-     * @throws LocalizedException
-     */
-    public function applySeoCode()
-    {
-        $this->pageConfig->getTitle()->set(join($this->getTitleSeparator(), array_reverse($this->getBlogTitle(true))));
-
-        $object = $this->getBlogObject();
-
-        $description = $object ? $object->getMetaDescription() : $this->helperData->getSeoConfig('meta_description');
-        $this->pageConfig->setDescription($description);
-
-        $keywords = $object ? $object->getMetaKeywords() : $this->helperData->getSeoConfig('meta_keywords');
-        $this->pageConfig->setKeywords($keywords);
-
-        $robots = $object ? $object->getMetaRobots() : $this->helperData->getSeoConfig('meta_robots');
-        $this->pageConfig->setRobots($robots);
-
-        if ($this->getRequest()->getFullActionName() === 'mpblog_post_view') {
-            $this->pageConfig->addRemotePageAsset(
-                $object->getUrl(),
-                'canonical',
-                ['attributes' => ['rel' => 'canonical']]
-            );
-        }
-        $pageMainTitle = $this->getLayout()->getBlock('page.main.title');
-        if ($pageMainTitle) {
-            $pageMainTitle->setPageTitle($this->getBlogTitle());
-        }
-
-        return $this;
-    }
-
     /**
      * Retrieve HTML title value separator (with space)
      *

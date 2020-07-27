@@ -15,13 +15,6 @@ class Index extends \Magento\Framework\App\Action\Action
 
     public function execute()
     {
-        ini_set('error_reporting', E_ERROR);
-        register_shutdown_function("fatal_handler");
-        function fatal_handler() {
-            $error = error_get_last();
-            echo("<pre>");
-            print_r($error);
-        }
 
         return $this->_pageFactory->create();
     }

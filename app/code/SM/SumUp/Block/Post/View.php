@@ -112,7 +112,7 @@ class View extends \SM\SumUp\Block\Listpost
         if (!empty($tagCollection)) {
             $listTags = [];
             foreach ($tagCollection as $tag) {
-                $listTags[] = '<a class="mp-info" href="' . $this->getTagUrl($tag) . '">' . $tag->getName() . '</a>';
+                $listTags[] =  $tag->getName();
             }
             $result = implode(', ', $listTags);
         }
