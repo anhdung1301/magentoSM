@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!--Grid collection-->
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="brand_listing_data_source" xsi:type="string">SM\Brand\Model\ResourceModel\Brand\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="SM\Brand\Model\ResourceModel\Brand\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">sm_brands</argument>
+            <argument name="resourceModel" xsi:type="string">SM\Brand\Model\ResourceModel\Brand</argument>
+        </arguments>
+    </virtualType>
+
+
+</config>

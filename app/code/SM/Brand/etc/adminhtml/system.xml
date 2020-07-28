@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="smart2" translate="label" sortOrder="10">
+            <label>SumUp2</label>
+        </tab>
+        <section id="sumup2" translate="label" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Blog Sumup2</label>
+            <tab>smart</tab>
+            <resource>SM_Brand::config_brand</resource>
+            <group id="general_settings" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>General Configuration</label>
+                <field id="route" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Brand List Url</label>
+                </field>
+                <field id="url_prefix" translate="label comment" type="text" sortOrder="24" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Brand Url Prefix</label>
+                </field>
+                <field id="url_suffix" translate="label comment" type="text" sortOrder="28" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Brand Url Suffix</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

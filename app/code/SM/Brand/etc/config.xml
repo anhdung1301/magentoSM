@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <sumup2>
+            <general_settings>
+                <route>shopbybrand.html</route>
+                <url_prefix>brand</url_prefix>
+                <url_suffix>.html</url_suffix>
+            </general_settings>
+        </sumup2>
+    </default>
+</config>

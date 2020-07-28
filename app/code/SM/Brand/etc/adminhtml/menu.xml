@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="SM_SumUp::brand" title="SumUP2" module="SM_Brand" sortOrder="110" resource="SM_Brand::brand" parent="Magento_Backend::content"/>
+        <add id="SM_SumUp::brand_new" title="Add New Brand" module="SM_SumUp" sortOrder="10"
+             parent="SM_SumUp::brand" action="brand/brand/edit" resource="SM_SumUp::brand"/>
+        <add id="SM_SumUp::brand_manage" title="Manage Brands" module="SM_SumUp" sortOrder="20"
+             parent="SM_SumUp::brand" action="brand/brand/index" resource="SM_SumUp::brand"/>
+        <add id="SM_SumUp::configuration" title="configuration" module="SM_SumUp" sortOrder="50" parent="SM_SumUp::brand"
+             action="adminhtml/system_config/edit/section/magetopbrand" resource="SM_SumUp::config_brand"/>
+    </menu>
+
+</config>
