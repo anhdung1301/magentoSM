@@ -50,7 +50,6 @@ class Edit extends \SM\SumUp\Controller\Adminhtml\Tag implements HttpGetActionIn
      */
     public function execute()
     {
-
         // 1. Get ID and create model
         $id = $this->getRequest()->getParam('tag_id');
         $model = $this->_objectManager->create(Tag::class);

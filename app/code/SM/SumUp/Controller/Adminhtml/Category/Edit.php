@@ -74,16 +74,10 @@ class Edit extends Category
      */
     public function execute()
     {
-        ini_set('display_errors', 1);
 
         $categoryId = (int) $this->getRequest()->getParam('id');
-        $duplicate  = $this->getRequest()->getParam('duplicate');
         $category   = $this->initCategory();
-        if ($duplicate) {
-            $category->setId(null);
-            $category->setData('duplicate', true);
-            $categoryId = null;
-        }
+
         if (!$category) {
             $resultRedirect = $this->resultRedirectFactory->create();
             $resultRedirect->setPath('*');
