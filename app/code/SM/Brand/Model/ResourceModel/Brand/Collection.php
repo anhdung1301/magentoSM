@@ -17,4 +17,20 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
         $this->_init('SM\Brand\Model\Brand', 'SM\Brand\Model\ResourceModel\Brand');
     }
 
+    /**
+     * Add attribute to sort order
+     *
+     * @param string $attribute
+     * @param string $dir
+     * @return $this
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     * @SuppressWarnings(PHPMD.NPathComplexity)
+     */
+    public function addAttributeToSort($attribute, $dir = self::SORT_ORDER_ASC)
+    {
+        $column = $attribute;
+        if($attribute != "entity_id")
+            $this->getSelect()->order("main_table.{$column} {$dir}");
+        return $this;
+    }
 }

@@ -41,7 +41,6 @@ class Edit extends \Magento\Backend\App\Action
      */
     public function execute()
     {
-        ini_set('display_errors', 1);
 
         // 1. Get ID and create model
         $id = $this->getRequest()->getParam('brand_id');

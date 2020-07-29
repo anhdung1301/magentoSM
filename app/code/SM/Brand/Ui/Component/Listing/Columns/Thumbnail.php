@@ -80,7 +80,6 @@ class Thumbnail extends Column
         $mediaFolder = 'sumup/brand/';
 
         $path = $this->_storeManager->getStore()->getBaseUrl(UrlInterface::URL_TYPE_MEDIA);
-var_dump($path);
         if (isset($dataSource['data']['items'])) {
             $fieldName = $this->getData('name');
             foreach ($dataSource['data']['items'] as &$item) {

@@ -1,0 +1,10 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+
+        <referenceContainer name="catalog.topnav">
+            <block class="SM\Brand\Block\Category\Menu"
+                   name="gallery.link" template="SM_Brand::category/topmenu.phtml">
+            </block>
+        </referenceContainer>
+    </body>
+</page>

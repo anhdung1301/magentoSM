@@ -186,24 +186,14 @@ class Main extends Generic implements TabInterface
             ]
         );
 
-        $fieldset->addField(
-            'position',
-            'text',
-            [
-                'name' => 'position',
-                'label' => __('Position'),
-                'title' => __('Position'),
-                'disabled' => $isElementDisabled
-            ]
-        );
 
         $fieldset->addField(
-            'status',
+            'enabled',
             'select',
             [
                 'label' => __('Status'),
                 'title' => __('Page Status'),
-                'name' => 'status',
+                'name' => 'enabled',
                 'options' => $model->getAvailableStatuses(),
                 'disabled' => $isElementDisabled
             ]

@@ -330,7 +330,6 @@ class Post extends AbstractDb
         $id          = $post->getId();
         $products    = $post->getProductsData();
         $oldProducts = $post->getProductsPosition();
-
         if (is_array($products)) {
             $insert  = array_diff_key($products, $oldProducts);
             $delete  = array_diff_key($oldProducts, $products);

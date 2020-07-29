@@ -75,6 +75,7 @@ class Edit extends Category
     public function execute()
     {
 
+
         $categoryId = (int) $this->getRequest()->getParam('id');
         $category   = $this->initCategory();
 

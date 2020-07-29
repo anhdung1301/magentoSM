@@ -86,7 +86,7 @@ class Data extends AbstractHelper
         $websiteId = $store->getWebsiteId();
 
         $result = $this->scopeConfig->getValue(
-            'brand/' . $key,
+            'sumup2/' . $key,
             ScopeInterface::SCOPE_STORE,
             $store);
         return $result;
