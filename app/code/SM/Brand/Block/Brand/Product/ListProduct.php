@@ -99,13 +99,13 @@ class ListProduct extends \Magento\Catalog\Block\Product\ListProduct
             foreach ($products as $k => $v) {
                 $productIds[] = $v['product_id'];
             }
+
             $collection = $this->_productCollectionFactory->create();
             $collection->setVisibility($this->_catalogProductVisibility
                 ->getVisibleInCatalogIds())->addAttributeToSelect('*')
                 ->addAttributeToFilter('entity_id', ['in' => $productIds]);
 
             $this->_productCollection = $collection;
-
         }
         return $this->_productCollection;
     }

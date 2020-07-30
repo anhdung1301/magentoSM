@@ -52,6 +52,9 @@ use SM\SumUp\Model\ResourceModel\Tag\Collection as TagCollection;
 use SM\SumUp\Model\Tag;
 use SM\SumUp\Model\TagFactory;
 use SM\SumUp\Helper\AbstractData as CoreHelper;
+use Magento\Framework\App\PageCache\Version;
+use Magento\Framework\App\Cache\TypeListInterface;
+use Magento\Framework\App\Cache\Frontend\Pool;
 
 /**
  * Class Data
@@ -65,7 +68,8 @@ class Data extends CoreHelper
     const TYPE_TAG           = 'tag';
     const TYPE_AUTHOR        = 'author';
     const TYPE_MONTHLY       = 'month';
-
+    protected $cacheTypeList;
+    protected $cacheFrontendPool;
     /**
      * @var PostFactory
      */
@@ -141,7 +145,9 @@ class Data extends CoreHelper
         ProductMetadataInterface $productMetadata,
         Session $customerSession,
         HttpContext $httpContext,
-        DateTime $dateTime
+        DateTime $dateTime,
+        TypeListInterface $cacheTypeList,
+        Pool $cacheFrontendPool
     ) {
         $this->postFactory        = $postFactory;
         $this->categoryFactory    = $categoryFactory;
@@ -152,6 +158,8 @@ class Data extends CoreHelper
         $this->customerSession    = $customerSession;
         $this->_httpContext       = $httpContext;
         $this->_productMetadata   = $productMetadata;
+        $this->cacheTypeList = $cacheTypeList;
+        $this->cacheFrontendPool = $cacheFrontendPool;
 
         parent::__construct($context, $objectManager, $storeManager);
     }
@@ -636,5 +644,29 @@ class Data extends CoreHelper
 
         return in_array('0', $storeEnable, true)
             || in_array((string) $this->storeManager->getStore()->getId(), $storeEnable, true);
+    }
+    public function flushCache()
+    {
+        $_types = [
+            'config',
+            'layout',
+            'block_html',
+            'collections',
+            'reflection',
+            'db_ddl',
+            'eav',
+            'config_integration',
+            'config_integration_api',
+            'full_page',
+            'translate',
+            'config_webservice'
+        ];
+
+        foreach ($_types as $type) {
+            $this->cacheTypeList->cleanType($type);
+        }
+        foreach ($this->cacheFrontendPool as $cacheFrontend) {
+            $cacheFrontend->getBackend()->clean();
+        }
     }
 }

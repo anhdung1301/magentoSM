@@ -140,7 +140,7 @@ class View extends Action
     public function execute()
     {
 
-
+        $this->helperBlog->flushCache();
 
         $id = $this->getRequest()->getParam('id');
         $post = $this->helperBlog->getFactoryByType(Data::TYPE_POST)->create()->load($id);
