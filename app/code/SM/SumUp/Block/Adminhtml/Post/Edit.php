@@ -95,6 +95,26 @@ class Edit extends Container
 
 
 
+    /**
+     * Retrieve text for header element depending on loaded Post
+     *
+     * @return string
+     */
+    public function getHeaderText()
+    {
+        /** @var Post $post */
+        $post = $this->coreRegistry->registry('sm_blog_post');
+
+        if ($this->getRequest()->getParam('history')) {
+            return __("Edit History Post '%1'", $this->escapeHtml($post->getName()));
+        }
+
+        if ($post->getId() && $post->getDuplicate()) {
+            return __("Edit Post '%1'", $this->escapeHtml($post->getName()));
+        }
+
+        return __('New Post');
+    }
 
     /**
      * Get form action URL
@@ -121,6 +141,29 @@ class Edit extends Container
         return parent::getFormActionUrl();
     }
 
+    /**
+     * @return string
+     */
+    protected function getDuplicateUrl()
+    {
+        $post = $this->coreRegistry->registry('sm_blog_post');
 
+        return $this->getUrl('*/*/duplicate', ['id' => $post->getId(), 'duplicate' => true]);
+    }
 
+    /**
+     * @return string
+     */
+    protected function getSaveDraftUrl()
+    {
+        return $this->getUrl('*/*/save', ['action' => 'draft']);
+    }
+
+    /**
+     * @return string
+     */
+    protected function getSaveAddHistoryUrl()
+    {
+        return $this->getUrl('*/*/save', ['action' => 'add']);
+    }
 }

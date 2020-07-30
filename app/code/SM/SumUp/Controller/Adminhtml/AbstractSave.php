@@ -48,9 +48,9 @@ abstract class AbstractSave extends Action
         $data = $this->getRequest()->getPostValue();
         $id = (int)$this->getRequest()->getParam($idFieldName);
 
-   if(isset($data['url_key']) && $data['url_key'] ==''){
-       $data['url_key'] = $data['name'];
-   }
+        if(isset($data['url_key']) && $data['url_key'] ==''){
+            $data['url_key'] =preg_replace('/\s+/', '', $data['name']);
+        }
 
         /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
         $resultRedirect = $this->resultRedirectFactory->create();

@@ -19,7 +19,7 @@
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
-namespace SM\SumUp\Controller\Adminhtml\Tag;
+namespace Sm\SumUp\Controller\Adminhtml\Tag;
 
 use Exception;
 use Magento\Backend\App\Action;

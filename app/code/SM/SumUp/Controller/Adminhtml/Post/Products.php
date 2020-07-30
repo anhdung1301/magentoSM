@@ -51,6 +51,7 @@ class Products extends Post
      */
     public function execute()
     {
+
         $this->initPost(true);
 
         return $this->resultLayoutFactory->create();

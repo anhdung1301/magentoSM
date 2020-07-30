@@ -148,9 +148,6 @@ class Post extends AbstractDb
      */
     protected function _beforeSave(AbstractModel $object)
     {
-        if (is_array($object->getStoreIds())) {
-            $object->setStoreIds(implode(',', $object->getStoreIds()));
-        }
 
         $object->setUrlKey(
             $this->helperData->generateUrlKey($this, $object, $object->getUrlKey() ?: $object->getName())
@@ -330,6 +327,7 @@ class Post extends AbstractDb
         $id          = $post->getId();
         $products    = $post->getProductsData();
         $oldProducts = $post->getProductsPosition();
+
         if (is_array($products)) {
             $insert  = array_diff_key($products, $oldProducts);
             $delete  = array_diff_key($oldProducts, $products);

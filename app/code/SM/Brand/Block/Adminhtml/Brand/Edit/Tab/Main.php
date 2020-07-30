@@ -198,6 +198,19 @@ class Main extends Generic implements TabInterface
                 'disabled' => $isElementDisabled
             ]
         );
+
+
+        $fieldset->addField(
+            'is_feature',
+            'select',
+            [
+                'label' => __('is_feature'),
+                'title' => __('is_feature'),
+                'name' => 'is_feature',
+                'options' => ['1' => __('Yes'), '0' => __('No')],
+                'value' => $this->getData('is_feature')
+            ]
+        );
         $fieldset->addField('country', 'select', [
             'name'   => 'country',
             'label'  => __('Country'),

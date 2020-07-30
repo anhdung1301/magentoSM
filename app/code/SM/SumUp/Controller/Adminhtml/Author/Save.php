@@ -70,7 +70,7 @@ class Save extends Author
 
         if ($data = $this->getRequest()->getPost('author')) {
             if(isset($data['url_key']) && $data['url_key'] ==''){
-                $data['url_key'] = $data['name'];
+                $data['url_key'] =preg_replace('/\s+/', '', $data['name']);
             }
             $author = $this->initAuthor();
             $this->prepareData($author, $data);

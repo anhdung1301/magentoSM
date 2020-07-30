@@ -156,9 +156,9 @@ class Save extends Category
                 return $resultRedirect;
             }
 
-            if(isset($data['url_key']) && $data['url_key'] ==''){
-                $data['url_key'] = $data['name'];
-            }
+//            if(isset($data['url_key']) && $data['url_key'] ==''){
+//                $data['url_key'] = $data['name'];
+//            }
             $category->addData($data);
             if ($posts = $this->getRequest()->getPost('selected_products')) {
                 $posts = json_decode($posts, true);

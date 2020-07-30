@@ -12,8 +12,8 @@
 
         <referenceContainer name="content">
             <block class="SM\SumUp\Block\Post\View" name="mpblog.post.view" template="Post/view.phtml" cacheable="false">
-                <block class="SM\SumUp\Block\Post\RelatedProduct" name="related.category.products" as="related_products" template="product/list.phtml"/>
             </block>
+            <block class="SM\SumUp\Block\Post\RelatedProduct" name="related.category.products" as="related_products" template="product/list.phtml"/>
         </referenceContainer>
     </body>
 </page>

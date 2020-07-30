@@ -3,23 +3,18 @@
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
-
 namespace SM\SumUp\Controller\Adminhtml\Tag;
 
-use Exception;
-use Magento\Backend\App\Action;
-use Magento\Backend\App\Action\Context;
-use Magento\Backend\Model\View\Result\Redirect;
 use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\Controller\ResultFactory;
-use Magento\Framework\Exception\LocalizedException;
+use Magento\Backend\App\Action\Context;
 use Magento\Ui\Component\MassAction\Filter;
 use SM\SumUp\Model\ResourceModel\Tag\CollectionFactory;
 
 /**
  * Class MassDisable
  */
-class MassDisable extends Action implements HttpPostActionInterface
+class MassDisable extends \Magento\Backend\App\Action implements HttpPostActionInterface
 {
     /**
      * Authorization level of a basic admin session
@@ -53,12 +48,13 @@ class MassDisable extends Action implements HttpPostActionInterface
     /**
      * Execute action
      *
-     * @return Redirect
-     * @throws LocalizedException|Exception
+     * @return \Magento\Backend\Model\View\Result\Redirect
+     * @throws \Magento\Framework\Exception\LocalizedException|\Exception
      */
     public function execute()
     {
         $collection = $this->filter->getCollection($this->collectionFactory->create());
+
         foreach ($collection as $item) {
             $item->setEnabled(false);
             $item->save();
@@ -68,7 +64,7 @@ class MassDisable extends Action implements HttpPostActionInterface
             __('A total of %1 record(s) have been disabled.', $collection->getSize())
         );
 
-        /** @var Redirect $resultRedirect */
+        /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
         $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
         return $resultRedirect->setPath('*/*/');
     }

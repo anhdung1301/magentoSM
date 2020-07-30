@@ -30,7 +30,7 @@ class Delete extends \SM\SumUp\Controller\Adminhtml\Tag implements HttpPostActio
         if ($id) {
             try {
                 // init model and delete
-                $model = $this->_objectManager->create(\NiceForNow\HairCare\Model\Condition::class);
+                $model = $this->_objectManager->create(\SM\SumUp\Model\Tag::class);
                 $model->load($id);
                 $model->delete();
                 // display success message

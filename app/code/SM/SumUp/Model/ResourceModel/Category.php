@@ -83,6 +83,12 @@ class Category extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
      */
     protected function _beforeSave(AbstractModel $object)
     {
+
+        $object->setUrlKey(
+            $this->helperData->generateUrlKey($this, $object, $object->getUrlKey() ?: $object->getName())
+        );
+
+
         $object->setUpdatedAt($this->date->date());
         if ($object->isObjectNew()) {
             $object->setCreatedAt($this->date->date());

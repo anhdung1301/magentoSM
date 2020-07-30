@@ -88,6 +88,7 @@ class Save extends Post
 
         if ($data = $this->getRequest()->getPost('post'))
         {
+
             $id =$this->getRequest()->getParam('id');
 
             /** @var PostModel $post */
@@ -102,6 +103,7 @@ class Save extends Post
                     'sumup_post_prepare_save',
                     ['post' => $post, 'request' => $this->getRequest()]
                 );
+
 
                 try {
                     if (empty($action) || $action === 'add') {
