@@ -2,30 +2,51 @@
 
 namespace SM\Brand\Block\Adminhtml\Brand;
 
+use Magento\Backend\Block\Widget\Context;
+use Magento\Backend\Block\Widget\Form\Container;
+use Magento\Framework\Phrase;
+use Magento\Framework\Registry;
+use Magento\Framework\View\Element\AbstractBlock;
+
 /**
  * Brand edit block
  */
-class Edit extends \Magento\Backend\Block\Widget\Form\Container
+class Edit extends Container
 {
     /**
      * Core registry
      *
-     * @var \Magento\Framework\Registry
+     * @var Registry
      */
     protected $_coreRegistry = null;
 
     /**
-     * @param \Magento\Backend\Block\Widget\Context $context
-     * @param \Magento\Framework\Registry $registry
+     * @param Context $context
+     * @param Registry $registry
      * @param array $data
      */
     public function __construct(
-        \Magento\Backend\Block\Widget\Context $context,
-        \Magento\Framework\Registry $registry,
+        Context $context,
+        Registry $registry,
         array $data = []
-    ) {
+    )
+    {
         $this->_coreRegistry = $registry;
         parent::__construct($context, $data);
+    }
+
+    /**
+     * Retrieve text for header element depending on loaded page
+     *
+     * @return Phrase
+     */
+    public function getHeaderText()
+    {
+        if ($this->_coreRegistry->registry('SM_brand')->getId()) {
+            return __("Edit Brand '%1'", $this->escapeHtml($this->_coreRegistry->registry('SM_brand')->getName()));
+        } else {
+            return __('New Brand');
+        }
     }
 
     /**
@@ -33,15 +54,16 @@ class Edit extends \Magento\Backend\Block\Widget\Form\Container
      *
      * @return void
      */
-    protected function _construct(){
+    protected function _construct()
+    {
         $this->_objectId = 'brand_id';
         $this->_blockGroup = 'SM_Brand';
         $this->_controller = 'adminhtml_brand';
 
         parent::_construct();
 
-        if($this->_isAllowedAction('SM_Brand::brand_save')){
-            $this->buttonList->update('save','label',__('Save Brand'));
+        if ($this->_isAllowedAction('SM_Brand::brand_save')) {
+            $this->buttonList->update('save', 'label', __('Save Brand'));
             $this->buttonList->add(
                 'saveandcontinue',
                 [
@@ -55,7 +77,7 @@ class Edit extends \Magento\Backend\Block\Widget\Form\Container
                 ],
                 -100
             );
-        }else{
+        } else {
             $this->buttonList->remove('save');
         }
 
@@ -63,20 +85,6 @@ class Edit extends \Magento\Backend\Block\Widget\Form\Container
             $this->buttonList->update('delete', 'label', __('Delete Brand'));
         } else {
             $this->buttonList->remove('delete');
-        }
-    }
-
-    /**
-     * Retrieve text for header element depending on loaded page
-     *
-     * @return \Magento\Framework\Phrase
-     */
-    public function getHeaderText()
-    {
-        if ($this->_coreRegistry->registry('SM_brand')->getId()) {
-            return __("Edit Brand '%1'", $this->escapeHtml($this->_coreRegistry->registry('SM_brand')->getName()));
-        } else {
-            return __('New Brand');
         }
     }
 
@@ -105,7 +113,7 @@ class Edit extends \Magento\Backend\Block\Widget\Form\Container
     /**
      * Prepare layout
      *
-     * @return \Magento\Framework\View\Element\AbstractBlock
+     * @return AbstractBlock
      */
     protected function _prepareLayout()
     {

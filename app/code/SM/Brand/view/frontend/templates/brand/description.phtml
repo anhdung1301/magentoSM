@@ -3,3 +3,8 @@
         <?php echo $this->helper('SM\Brand\Helper\Data')->filter($_description) ?>
     </div>
 <?php endif; ?>
+<?php if ($country = $block->getCurrentBrand()->getCountry()): ?>
+    <div class="brand-description">
+        Country : <?php echo $this->helper('SM\Brand\Helper\Data')->filter($block->getCountryname($country)) ?>
+    </div>
+<?php endif; ?>

@@ -11,9 +11,13 @@ use Magento\Framework\Registry;
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
 use SM\Brand\Helper\Data;
-
+use Magento\Directory\Model\CountryFactory;
 class View extends Template
 {
+    /**
+     * @var CountryFactory
+     */
+    protected $_countryFactory;
     /**
      * Core registry
      *
@@ -46,13 +50,14 @@ class View extends Template
         Resolver $layerResolver,
         Registry $registry,
         Data $brandHelper,
+        CountryFactory $countryFactory,
         array $data = []
     )
     {
         $this->_brandHelper = $brandHelper;
         $this->_catalogLayer = $layerResolver->get();
         $this->_coreRegistry = $registry;
-
+        $this->_countryFactory = $countryFactory;
         parent::__construct($context, $data);
     }
 
@@ -96,7 +101,10 @@ class View extends Template
         }
         return $brand;
     }
-
+    public function getCountryname($countryCode){
+        $country = $this->_countryFactory->create()->loadByCode($countryCode);
+        return $country->getName();
+    }
     /**
      * Prepare breadcrumbs
      *

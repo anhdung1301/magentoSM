@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <referenceContainer name="columns">
+        <container name="div.sidebar.main" htmlTag="div" htmlClass="sidebar sidebar-main" before="-" >
+            <container name="blog.sidebar.main" as="sidebar_main" label="Sidebar Main">
+                <block class="SM\Brand\Block\Sidebar\Search" name="brand.sidebar.search" template="sidebar/search.phtml"/>
+            </container>
+        </container>
+    </referenceContainer>
+</page>

@@ -1,0 +1,62 @@
+<?php
+/** @var \SM\Brand\Block\Sidebar\Search $block */
+?>
+<style>
+    .sidebar.sidebar-main:before {
+        content: unset;
+    }
+
+</style>
+<div class="mpblog-search">
+    <div class="field search">
+        <label class="label" for="mpblog-search-box" data-role="minisearch-label">
+            <span><?= __('Search'); ?></span>
+        </label>
+        <div class="control">
+            <input id="mpblog-search-box"
+                   type="text"
+                   name="query"
+                   value="<?= $this->getRequest()->getParam('query') ?>"
+                   placeholder="<?= __('Search brand here...'); ?>"
+                   class="input-text"
+                   role="combobox"
+                   aria-haspopup="false"
+                   aria-autocomplete="both"
+            />
+        </div>
+    </div>
+    <div class="actions">
+        <button type="submit" title="<?= __('Search') ?>" class="action search">
+            <i class="fa fa-search" aria-hidden="true" style="font-size: 16px;margin-top: 5px;"></i>
+        </button>
+    </div>
+</div>
+<script>
+    require(['jquery', 'mpDevbridgeAutocomplete'], function ($) {
+        var visibleImage = true;
+        $('#mpblog-search-box').autocomplete({
+            lookup: <?= $block->getSearchBlogData();?>,
+            lookupLimit: 5,
+            maxHeight: 2000,
+            minChars: 1,
+            autoSelectFirst: true,
+            showNoSuggestionNotice: true,
+            triggerSelectOnValidInput: false,
+            onSelect: function (suggestion) {
+                window.location.href = suggestion.url;
+            },
+            formatResult: function (suggestion, currentValue) {
+                var additionClass = '';
+                var html = "<div class='mpblog-suggestion'>";
+                if (visibleImage) {
+                    html += "<div class='mpblog-suggestion-left'><img class='img-responsive' src='" + suggestion.image + "' /></div>";
+                    additionClass = 'image-visible';
+                }
+                html += "<div class='mpblog-suggestion-right " + additionClass + "'>" +
+                    "<div class='mpblog-product-line mpblog-product-name'>" + suggestion.value + "</div>" +
+                    "</div>";
+                return html;
+            }
+        });
+    });
+</script>

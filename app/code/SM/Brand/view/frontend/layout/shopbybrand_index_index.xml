@@ -1,11 +1,13 @@
 <?xml version="1.0"?>
 
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="brand_dafault"/>
+
     <body>
     <referenceContainer name="content">
-        <block class="SM\Brand\Block\Brandpage" name="SMbrand.list">
-            <block class="SM\Brand\Block\Toolbar" name="SMbrand_toolbar" template="SM_Brand::toolbar.phtml">
-                <block class="Magento\Theme\Block\Html\Pager" name="brand_list_toolbar_pager"/>
+        <block class="SM\Brand\Block\Brandpage" name="SMbrand.list" cacheable = "false">
+            <block class="SM\Brand\Block\Toolbar" name="SMbrand_toolbar" template="SM_Brand::toolbar.phtml" cacheable = "false">
+                <block class="Magento\Theme\Block\Html\Pager" name="brand_list_toolbar_pager" cacheable = "false"/>
             </block>
         </block>
     </referenceContainer>

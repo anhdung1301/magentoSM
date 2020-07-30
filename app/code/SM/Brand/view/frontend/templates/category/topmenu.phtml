@@ -23,7 +23,7 @@ $categorys = $block->getCollections();
                 aria-expanded="false" style="display: none; top: 47px; left: -0.15625px;" aria-hidden="true">
                 <?php foreach ($categorys as $category) : ?>
                     <li class="level 0 category-item ui-menu-item" role="presentation">
-                        <a href='<?= $category->getUrl(); ?>>' class="ui-corner-all" tabindex="-1" role="menuitem">
+                        <a href='<?= $category->getUrl(); ?>' class="ui-corner-all" tabindex="-1" role="menuitem">
                             <span><?php echo $category->getName();?></span>
                         </a>
                     </li>
